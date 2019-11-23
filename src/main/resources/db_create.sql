@@ -1,3 +1,6 @@
+CREATE DATABASE `airline_system`;
+USE airline_system;
+
 CREATE TABLE `location` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
