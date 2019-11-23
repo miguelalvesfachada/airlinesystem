@@ -18,3 +18,33 @@ CREATE TABLE `schedule` (
   UNIQUE KEY `from_loc_id_UNIQUE` (`from_loc_id`),
   UNIQUE KEY `to_loc_id_UNIQUE` (`to_loc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `airport` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(3) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `location_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code_UNIQUE` (`code`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `flight` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `capacity` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `reservation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `schedule_id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `status` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
