@@ -12,14 +12,12 @@ CREATE TABLE `location` (
 
 CREATE TABLE `schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `from_loc_id` int(11) NOT NULL,
-  `to_loc_id` int(11) NOT NULL,
+  `from_airport_code` varchar(3) NOT NULL,
+  `to_airport_code` varchar(3) NOT NULL,
   `dept_time` datetime NOT NULL,
   `arrival_time` datetime NOT NULL,
   `rem_capacity` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `from_loc_id_UNIQUE` (`from_loc_id`),
-  UNIQUE KEY `to_loc_id_UNIQUE` (`to_loc_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
