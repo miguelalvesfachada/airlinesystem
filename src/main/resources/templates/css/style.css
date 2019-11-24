@@ -1,0 +1,47 @@
+.form-row {
+    justify-content: center;
+    margin-top: 100px;
+    text-align: center;
+}
+
+.form-row .card {
+    width: 400px;
+    justify-content: center;
+}
+
+.form-row .flight-card {
+    width: 100%;
+    margin: 5px 0;
+}
+
+/* Date picker css */
+[type="date"] {
+    background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+}
+[type="date"]::-webkit-inner-spin-button {
+    display: none;
+}
+[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+}
+
+a {
+   text-decoration: none;
+    color: darkgray;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.booking-form {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.booking-form input,
+.booking-form label{
+    margin: 0 10px;
+}

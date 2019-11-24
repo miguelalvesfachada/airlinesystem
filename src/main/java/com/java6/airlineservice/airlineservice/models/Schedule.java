@@ -19,8 +19,8 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long fromLocId;
-    private Long toLocId;
+    private String fromAirportCode;
+    private String toAirportCode;
     private Instant deptTime;
     private Instant arrivalTime;
     private Long remCapacity;
