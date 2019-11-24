@@ -1,12 +1,10 @@
 package com.java6.airlineservice.airlineservice.models;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -18,5 +16,7 @@ public class Reservation {
 
     private Long scheduleId;
     private String name;
-    private String status;
+    private String bookingCode;
+    @Enumerated (value = EnumType.STRING)
+    private ReservationStatus status;
 }
