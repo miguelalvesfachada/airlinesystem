@@ -1,4 +1,4 @@
-package com.java6.airlineservice.airlineservice.services;
+package com.java6.airlineservice.airlineservice.repository;
 
 import com.java6.airlineservice.airlineservice.models.Airport;
 import org.springframework.data.jpa.repository.JpaRepository;
