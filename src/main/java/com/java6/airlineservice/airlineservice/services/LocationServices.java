@@ -1,4 +1,4 @@
-package com.java6.airlineservice.airlineservice.service;
+package com.java6.airlineservice.airlineservice.services;
 
 import com.java6.airlineservice.airlineservice.models.Location;
 import com.java6.airlineservice.airlineservice.repository.LocationRepository;
