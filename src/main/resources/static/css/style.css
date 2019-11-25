@@ -45,3 +45,8 @@ a:hover {
 .booking-form label{
     margin: 0 10px;
 }
+
+.booking-success img {
+    width: 100%;
+    height: auto;
+}

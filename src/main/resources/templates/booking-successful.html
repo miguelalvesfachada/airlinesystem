@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Airline Service</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 
@@ -15,19 +15,14 @@
 </nav>
 
 
-
-
 <div class="container">
     <div class="row form-row">
-        <div class="card flight-card border-dark" th:each="schedule : ${schedules}">
-            <a th:href="@{/book/{id}(id=${schedule.getId()})}" class="card-body">
-                <span th:text="${schedule.getFromAirportCode()}" />
-                <span th:text="${schedule.getToAirportCode()}" />
-                <span th:text="${schedule.getDeptTime()}" />
-                <span th:text="${schedule.getArrivalTime()}" />
-                <span th:text="${schedule.getRemCapacity()}" />
-            </a>
+        <div class="card">
+            <div class="card-body booking-success">
+                <span>Your booking number is:</span><span th:text="${bookingCode}"/>
 
+                <img src="/img/success.png">
+            </div>
         </div>
     </div>
 </div>

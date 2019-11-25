@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ScheduleService {
@@ -20,4 +21,5 @@ public class ScheduleService {
     public List<Schedule> searchForFlightSchedules(String fromLocation, String toLocation, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate flightTime) {
         return scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTime(fromLocation, toLocation, flightTime);
     }
+
 }

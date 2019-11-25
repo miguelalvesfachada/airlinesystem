@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Airline Service</title>
@@ -16,26 +16,25 @@
 
 
 <div class="container">
-    <div class="row form-row">
-        <div class="card flight-card border-dark">
-            <a href="#" class="card-body">
-                Flight 1
-            </a>
-        </div>
 
 
 
-    </div>
 
     <div class="row form-row">
         <div class="card flight-card">
-            <form method="post" action="/booking" class="booking-form">
-                <label for="scheduleId">Booking ID</label>
-                <input type="text" class="form-control" id="scheduleId" placeholder="Full Name...">
+            <form method="post" th:action="@{/booking/confirm}" th:object="${reservation}" class="booking-form">
 
+                <div class="card flight-card border-dark">
+                    <span th:text="${schedule.getFromAirportCode()}" />
+                    <span th:text="${schedule.getToAirportCode()}" />
+                    <span th:text="${schedule.getDeptTime()}" />
+                    <span th:text="${schedule.getArrivalTime()}" />
+                    <span th:text="${schedule.getRemCapacity()}" />
+                </div>
 
-                <label for="bookingName">To</label>
-                <input type="text" class="form-control" id="bookingName" placeholder="Full Name...">
+                <label for="bookerName">Your Name</label>
+                <input type="hidden" th:attr="name='scheduleId'" th:value="${schedule.getId()}">
+                <input type="text" th:field="*{name}" class="form-control" name="name" id="bookerName" placeholder="Full Name...">
 
                 <input class="btn btn-outline-dark" type="submit" value="Submit">
             </form>
