@@ -12,14 +12,12 @@ CREATE TABLE `location` (
 
 CREATE TABLE `schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `booking_code` varchar(25) NOT NULL,
   `from_airport_code` varchar(3) NOT NULL,
   `to_airport_code` varchar(3) NOT NULL,
   `dept_time` datetime NOT NULL,
   `arrival_time` datetime NOT NULL,
   `rem_capacity` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `booking_code_UNIQUE` (`booking_code`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -46,8 +44,9 @@ CREATE TABLE `reservation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `schedule_id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
+  `booking_code` varchar(25) NOT NULL,
   `status` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
+  UNIQUE KEY `booking_code_UNIQUE` (`booking_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
