@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -21,8 +22,8 @@ public class Schedule {
 
     private String fromAirportCode;
     private String toAirportCode;
-    private Instant deptTime;
-    private Instant arrivalTime;
+    private LocalDate deptTime;
+    private LocalDate arrivalTime;
     private Long remCapacity;
 
 }

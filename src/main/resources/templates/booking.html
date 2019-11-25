@@ -9,7 +9,7 @@
 <body>
 
 <nav class="navbar navbar-light bg-secondary">
-    <a class="navbar-brand text-white-50" href="#">
+    <a class="navbar-brand text-white-50" href="/">
         Airline Service
     </a>
 </nav>
@@ -29,7 +29,11 @@
 
     <div class="row form-row">
         <div class="card flight-card">
-            <form method="post" action="/booking/confirm" class="booking-form">
+            <form method="post" action="/booking" class="booking-form">
+                <label for="scheduleId">Booking ID</label>
+                <input type="text" class="form-control" id="scheduleId" placeholder="Full Name...">
+
+
                 <label for="bookingName">To</label>
                 <input type="text" class="form-control" id="bookingName" placeholder="Full Name...">
 

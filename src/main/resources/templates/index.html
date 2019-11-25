@@ -9,7 +9,7 @@
 <body>
 
     <nav class="navbar navbar-light bg-secondary">
-        <a class="navbar-brand text-white-50" href="#">
+        <a class="navbar-brand text-white-50" href="/">
             Airline Service
         </a>
     </nav>
@@ -22,15 +22,15 @@
                     <form method="get" action="/search">
                         <div class="form-group">
                             <label for="fromLocation">From</label>
-                            <input type="text" class="form-control" id="fromLocation" placeholder="From...">
+                            <input type="text" class="form-control" id="fromLocation" name="fromLocation" placeholder="From...">
                         </div>
                             <div class="form-group">
                             <label for="toLocation">To</label>
-                            <input type="text" class="form-control" id="toLocation" placeholder="To...">
+                            <input type="text" class="form-control" id="toLocation"  name="toLocation" placeholder="To...">
                         </div>
                         <div class="form-group">
                             <label class="datepicker" for="flightTime">Pick a date</label>
-                            <input type="date" name="time-of-flight" id="flightTime">
+                            <input type="date" id="flightTime" name="flightTime">
                         </div>
 
                         <input class="btn btn-outline-dark" type="submit" value="Submit">
