@@ -27,7 +27,7 @@ public class AiportController {
     }
 
     public  String findAllByCode(@PathVariable("code") String code) {
-    List<Airport> airports = airportServices.findAllByCode(code);
+        List<Airport> airports = airportServices.findAllByCode(code);
     return "sample";
 }
 
