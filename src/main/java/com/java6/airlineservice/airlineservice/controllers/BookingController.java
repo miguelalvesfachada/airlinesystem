@@ -21,8 +21,8 @@ public class BookingController {
     private ScheduleRepository scheduleRepository;
 
 
-    @GetMapping ("/book/{id}")
-    public String book (@PathVariable long id, Model model) {
+    @GetMapping("/book/{id}")
+    public String book(@PathVariable long id, Model model) {
         Schedule schedule = scheduleRepository.getOne(id);
         model.addAttribute("schedule", schedule);
         model.addAttribute("reservation", new Reservation());
@@ -31,11 +31,11 @@ public class BookingController {
 
 
 
-    @PostMapping("/booking")
+   /* @PostMapping("/booking")
     public String bookingAction (Model model, Schedule schedule){
         model.addAttribute("schedule",schedule);
         return "confirmBooking";
-    }
+}*/
 
 
     @PostMapping("/booking/confirm")
