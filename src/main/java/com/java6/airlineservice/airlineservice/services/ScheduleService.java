@@ -22,8 +22,4 @@ public class ScheduleService {
         return scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTime(fromLocation, toLocation, flightTime);
     }
 
-    public Schedule getScheduleById(Long id) {
-        return scheduleRepository.findById(id).get();
-    }
-
 }
