@@ -21,6 +21,10 @@ public class BookingService {
         return reservationRepository.save(reservation);
     }
 
+    public Reservation getBookingByCode(String bookingCode) {
+        return reservationRepository.findByBookingCode(bookingCode).get();
+    }
+
     private String generateBookingCode() {
 
         int length = 8;
