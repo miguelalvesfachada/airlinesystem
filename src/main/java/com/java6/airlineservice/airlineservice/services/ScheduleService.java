@@ -22,4 +22,6 @@ public class ScheduleService {
         return scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTime(fromLocation, toLocation, flightTime);
     }
 
+
+
 }

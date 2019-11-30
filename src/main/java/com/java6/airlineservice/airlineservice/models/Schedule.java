@@ -3,6 +3,7 @@ package com.java6.airlineservice.airlineservice.models;
 import com.sun.javafx.beans.IDProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -22,8 +24,10 @@ public class Schedule {
 
     private String fromAirportCode;
     private String toAirportCode;
-    private LocalDate deptTime;
-    private LocalDate arrivalTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime deptTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime arrivalTime;
     private Long remCapacity;
 
 }

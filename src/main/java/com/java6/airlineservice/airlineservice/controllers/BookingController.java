@@ -21,8 +21,8 @@ public class BookingController {
     private ScheduleRepository scheduleRepository;
 
 
-    @GetMapping("/book/{id}")
-    public String book(@PathVariable long id, Model model) {
+    @GetMapping ("/book/{id}")
+    public String book (@PathVariable long id, Model model) {
         Schedule schedule = scheduleRepository.getOne(id);
         model.addAttribute("schedule", schedule);
         model.addAttribute("reservation", new Reservation());

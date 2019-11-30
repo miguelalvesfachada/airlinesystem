@@ -1,14 +1,17 @@
 package com.java6.airlineservice.airlineservice.controllers;
 
 import com.java6.airlineservice.airlineservice.models.Airport;
+import com.java6.airlineservice.airlineservice.models.Schedule;
 import com.java6.airlineservice.airlineservice.models.Flight;
 import com.java6.airlineservice.airlineservice.models.Location;
 import com.java6.airlineservice.airlineservice.repository.AirportRepository;
+import com.java6.airlineservice.airlineservice.repository.ScheduleRepository;
 import com.java6.airlineservice.airlineservice.repository.FlightRepository;
 import com.java6.airlineservice.airlineservice.repository.LocationRepository;
 import com.java6.airlineservice.airlineservice.services.AirportServices;
 import com.java6.airlineservice.airlineservice.services.FlightService;
 import com.java6.airlineservice.airlineservice.services.LocationServices;
+import com.java6.airlineservice.airlineservice.services.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Controller;
@@ -36,6 +39,14 @@ public class AdminController {
 
     @Autowired
     FlightRepository flightRepository;
+    @Autowired
+    ScheduleService scheduleService;
+
+    @Autowired
+    ScheduleRepository scheduleRepository;
+
+
+
 
     @GetMapping("/admin")
     public String returnAdminPage() {
@@ -46,6 +57,10 @@ public class AdminController {
     public String returnAirportAdmin() {
         return "airport-admin";
     }
+
+    @GetMapping("/schedule-admin")
+    public String returnScheduleAdmin(){return "schedule-admin";}
+
 
     @GetMapping("/flight-admin")
     public String returnFlightAdmin() {
@@ -63,6 +78,14 @@ public class AdminController {
         model.addObject(airportRepository.save(airport));
         model.setViewName("airport-add-successful");
         return model;
+
+    }
+        @PostMapping("/addschedule")
+        public ModelAndView addSchedule(Schedule schedule){
+            ModelAndView model= new ModelAndView();
+            model.addObject("schedule",scheduleRepository.save(schedule));
+            model.setViewName("schedule-add-successful");
+            return model;
 
 
     }
