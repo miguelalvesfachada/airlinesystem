@@ -5,12 +5,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
 
-    List<Schedule> findAllByFromAirportCodeAndToAirportCodeAndDeptTime(String fromAirportCode, String toAirportCode, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate flightTime);
+    List<Schedule> findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetween(String fromAirportCode, String toAirportCode,
+                                                                              LocalDateTime flightTimeFrom, LocalDateTime flightTimeTo);
 
 
 }
