@@ -14,6 +14,8 @@ public class BookingService {
 
     @Autowired
     private ReservationRepository reservationRepository;
+    @Autowired
+    private ScheduleService scheduleService;
 
     public Reservation addBooking (Reservation reservation) {
         reservation.setStatus(ReservationStatus.BOOKED);
@@ -23,6 +25,11 @@ public class BookingService {
         while (checkIfBookingCodeExists(reservation.getBookingCode())) {
             reservation.setBookingCode(generateBookingCode());
         }
+
+
+        Long selectedScheduledId = reservation.getScheduleId();
+        scheduleService.reduceScheduleCapacity(selectedScheduledId, 1);
+
         return reservationRepository.save(reservation);
     }
 
