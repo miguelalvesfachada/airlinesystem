@@ -22,6 +22,11 @@ public class ScheduleService {
         return scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTime(fromLocation, toLocation, flightTime);
     }
 
-
+    public void reduceScheduleCapacity (Long scheduleId, int numberToReduce){
+        Schedule schedule = scheduleRepository.findById(scheduleId).get();
+        Long remainingCapacity = schedule.getRemCapacity();
+        schedule.setRemCapacity(remainingCapacity - numberToReduce);
+        scheduleRepository.save(schedule);
+    }
 
 }
