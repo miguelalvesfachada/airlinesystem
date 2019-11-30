@@ -28,6 +28,8 @@ public class AdminController {
     ScheduleRepository scheduleRepository;
 
 
+
+
     @GetMapping("/admin")
     public String returnAdminPage() {
         return "admin";

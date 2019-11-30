@@ -12,4 +12,5 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
 
     List<Schedule> findAllByFromAirportCodeAndToAirportCodeAndDeptTime(String fromAirportCode, String toAirportCode, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate flightTime);
 
+
 }
