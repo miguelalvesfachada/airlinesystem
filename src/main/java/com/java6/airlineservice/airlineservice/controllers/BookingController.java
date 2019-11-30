@@ -31,11 +31,11 @@ public class BookingController {
 
 
 
-    @PostMapping("/booking")
+   /* @PostMapping("/booking")
     public String bookingAction (Model model, Schedule schedule){
         model.addAttribute("schedule",schedule);
         return "confirmBooking";
-    }
+    }*/
 
 
     @PostMapping("/booking/confirm")
