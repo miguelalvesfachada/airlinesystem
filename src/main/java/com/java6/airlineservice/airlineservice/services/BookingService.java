@@ -18,6 +18,11 @@ public class BookingService {
     public Reservation addBooking (Reservation reservation) {
         reservation.setStatus(ReservationStatus.BOOKED);
         reservation.setBookingCode(generateBookingCode());
+
+        //TODO prevent infinite loop
+        while (checkIfBookingCodeExists(reservation.getBookingCode())) {
+            reservation.setBookingCode(generateBookingCode());
+        }
         return reservationRepository.save(reservation);
     }
 
@@ -32,6 +37,10 @@ public class BookingService {
                 .collect(Collectors.joining());
 
         return str.toUpperCase();
+    }
+
+    private boolean checkIfBookingCodeExists(String bookingCode){
+        return reservationRepository.findByBookingCode(bookingCode).isPresent();
     }
 
 }

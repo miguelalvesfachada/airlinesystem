@@ -1,6 +1,7 @@
 package com.java6.airlineservice.airlineservice.controllers;
 
 import com.java6.airlineservice.airlineservice.models.Airport;
+import com.java6.airlineservice.airlineservice.models.Schedule;
 import com.java6.airlineservice.airlineservice.repository.AirportRepository;
 import com.java6.airlineservice.airlineservice.services.AirportServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class AdminController {
     AirportServices airportServices;
     @Autowired
     AirportRepository airportRepository;
+
+
 
 
     @GetMapping("/admin")
