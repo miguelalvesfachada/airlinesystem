@@ -18,10 +18,15 @@
 
 
 <div class="container">
-    <div class="row form-row" th:if="{bookingError}">
+    <div class="row form-row" th:if="${bookingError != null && !bookingError.isEmpty()}">
         <span id="error-message" th:text="${bookingError}"></span>
     </div>
-    <div class="row form-row">
+    <div class="row form-row" th:if="${schedules.isEmpty()}">
+        <span id="empty-schedule">
+            No available flight found for search criteria. Click <a href="/">here</a> to search again
+        </span>
+    </div>
+    <div class="row form-row"  th:if="${!schedules.isEmpty()}">
         <div class="card flight-card border-dark" th:each="schedule : ${schedules}">
             <a th:href="@{/book/{id}(id=${schedule.getId()})}" class="card-body">
                 <span th:text="${schedule.fromAirportCode}" />

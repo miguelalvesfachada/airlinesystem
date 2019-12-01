@@ -19,7 +19,8 @@ public class SearchController {
     @GetMapping("/search")
     public ModelAndView searchForAvailableFlightSchedules(String fromLocation, String toLocation, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate flightTime) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("schedules", scheduleService.searchForAvailableFlightSchedules(fromLocation, toLocation, flightTime, 1L));
+        modelAndView.addObject("bookingError", "");
+        modelAndView.addObject("schedules", scheduleService.searchForAvailableFlightSchedules(fromLocation, toLocation, flightTime, 1));
         modelAndView.setViewName("flights");
         return modelAndView;
     }

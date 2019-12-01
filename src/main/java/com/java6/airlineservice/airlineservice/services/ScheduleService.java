@@ -22,7 +22,7 @@ public class ScheduleService {
 
     public List<Schedule> searchForAvailableFlightSchedules(String fromLocation, String toLocation,
                                                             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate flightTime,
-                                                            Long numberOfPeople) {
+                                                            Integer numberOfPeople) {
         LocalDateTime flightTimeFrom = flightTime.atStartOfDay();
         LocalDateTime flightTimeTo = flightTimeFrom.plusDays(1).minusSeconds(1);
         System.out.println(flightTimeFrom + "::" + flightTimeTo);
@@ -35,9 +35,9 @@ public class ScheduleService {
 
     public void reduceScheduleCapacity (Long scheduleId, int numberToReduce){
         Schedule schedule = getScheduleById(scheduleId);
-        Long remainingCapacity = schedule.getRemCapacity();
+        Integer remainingCapacity = schedule.getRemCapacity();
         if(remainingCapacity < numberToReduce) {
-            throw new ScheduleCapacityException("Flight is fully booked");
+            throw new ScheduleCapacityException("Flight is fully booked", scheduleId, numberToReduce);
         }
         schedule.setRemCapacity(remainingCapacity - numberToReduce);
         scheduleRepository.save(schedule);
