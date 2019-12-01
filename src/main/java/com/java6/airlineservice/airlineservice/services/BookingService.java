@@ -2,6 +2,7 @@ package com.java6.airlineservice.airlineservice.services;
 
 import com.java6.airlineservice.airlineservice.models.Reservation;
 import com.java6.airlineservice.airlineservice.models.ReservationStatus;
+import com.java6.airlineservice.airlineservice.models.Schedule;
 import com.java6.airlineservice.airlineservice.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,6 @@ public class BookingService {
         while (checkIfBookingCodeExists(reservation.getBookingCode())) {
             reservation.setBookingCode(generateBookingCode());
         }
-
 
         Long selectedScheduledId = reservation.getScheduleId();
         scheduleService.reduceScheduleCapacity(selectedScheduledId, 1);

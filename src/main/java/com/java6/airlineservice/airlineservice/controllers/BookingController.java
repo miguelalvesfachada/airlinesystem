@@ -28,7 +28,7 @@ public class BookingController {
 
     @GetMapping ("/{id}")
     public String book (@PathVariable long id, Model model) {
-        Schedule schedule = scheduleService.getScheduleById(id).get();
+        Schedule schedule = scheduleService.getScheduleById(id);
         model.addAttribute("schedule", schedule);
         model.addAttribute("reservation", new Reservation());
         return "booking";
@@ -59,7 +59,7 @@ public class BookingController {
     public String manageBooking(@RequestParam("bookingCode") String bookingCode, Model model) {
         Reservation reservation =  bookingService.getBookingByCode(bookingCode);
         model.addAttribute("booking", reservation);
-        model.addAttribute("schedule", scheduleService.getScheduleById(reservation.getScheduleId()).get());
+        model.addAttribute("schedule", scheduleService.getScheduleById(reservation.getScheduleId()));
         return "show-booking";
     }
 
