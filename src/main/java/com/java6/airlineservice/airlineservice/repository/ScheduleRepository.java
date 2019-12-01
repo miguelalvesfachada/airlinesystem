@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
 
-    List<Schedule> findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetween(String fromAirportCode, String toAirportCode,
-                                                                              LocalDateTime flightTimeFrom, LocalDateTime flightTimeTo);
+    List<Schedule> findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(String fromAirportCode, String toAirportCode,
+                                                                              LocalDateTime flightTimeFrom, LocalDateTime flightTimeTo, Integer numberOfPeople);
 
 
 
