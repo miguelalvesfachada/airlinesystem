@@ -38,10 +38,10 @@ public class BookingController {
         return "booking";
     }
 
-    @GetMapping("/book/{toid}/{returnid}")
+    @GetMapping("/{toid}/{returnid}")
     public String bookWithReturn(@PathVariable long toid, @PathVariable long returnid, Model model){
-        Schedule toSchedule = scheduleRepository.getOne(toid);
-        Schedule returnSchedule = scheduleRepository.getOne(returnid);
+        Schedule toSchedule = scheduleService.getScheduleById(toid);
+        Schedule returnSchedule = scheduleService.getScheduleById(returnid);
         model.addAttribute("toSchedule", toSchedule);
         model.addAttribute("returnSchedule", returnSchedule);
         return "booking-with-return";
