@@ -96,4 +96,13 @@ public class AdminController {
         return model;
 
     }
+
+    //TODO display all flights
+    //TODO display all reservations (max 100 per page?)
+    //TODO display all locations
+    //TODO display all schedules (max 100 per page?)
+    //TODO editing functionality for the repositories
+    //TODO deleting functionality for the repositories
+    //TODO SPRING SECURITY for admin login
+
 }
