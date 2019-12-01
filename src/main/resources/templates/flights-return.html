@@ -23,7 +23,7 @@
     <div class="row form-row">
         <div class="card flight-card border-dark" >
             <div th:each="toschedule : ${toschedules}">
-            <a th:each="returnschedule : ${returnschedules}" th:href="@{/book/{toid}/{returnid} (toid=${toschedule.getId()}, returnid=${returnschedule.getId()})}" class="card flight-card border-dark">
+            <a th:each="returnschedule : ${returnschedules}" th:href="@{/booking/{toid}/{returnid} (toid=${toschedule.getId()}, returnid=${returnschedule.getId()})}" class="card flight-card border-dark">
                 <div class="card-body">
                 <div>
                     <span th:text="${toschedule.getFromAirportCode()}" />
