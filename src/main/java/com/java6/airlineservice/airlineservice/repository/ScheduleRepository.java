@@ -15,4 +15,5 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
                                                                               LocalDateTime flightTimeFrom, LocalDateTime flightTimeTo);
 
 
+
 }

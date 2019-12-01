@@ -46,8 +46,7 @@ public class AdminController {
 
     @Autowired
     ScheduleRepository scheduleRepository;
-    @Autowired
-    FlightRepository flightRepository;
+
 
 
 

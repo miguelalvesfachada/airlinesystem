@@ -1,14 +1,14 @@
 package com.java6.airlineservice.airlineservice.models;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +19,6 @@ public class Reservation {
     private String bookingCode;
     @Enumerated (value = EnumType.STRING)
     private ReservationStatus status;
+
+
 }

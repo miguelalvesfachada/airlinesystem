@@ -10,8 +10,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ScheduleService {
@@ -33,4 +32,24 @@ public class ScheduleService {
         scheduleRepository.save(schedule);
     }
 
+    public Map<String, List<Schedule>> searchForFlightSchedulesWithReturn(String fromLocation, String toLocation, LocalDate flightTime, LocalDate returnFlightTime) {
+        LocalDateTime flightTimeFrom = flightTime.atStartOfDay();
+        LocalDateTime flightTimeTo = flightTimeFrom.plusDays(1).minusSeconds(1);
+        LocalDateTime returnflightTimeFrom = returnFlightTime.atStartOfDay();
+        LocalDateTime returnflightTimeTo = returnflightTimeFrom.plusDays(1).minusSeconds(1);
+        List<Schedule> toFlightList = scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetween(fromLocation,toLocation,flightTimeFrom,flightTimeTo);
+
+        final String temp = fromLocation;
+        fromLocation = toLocation;
+        toLocation = temp;
+
+
+        List<Schedule> returnFlightList = scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetween(fromLocation,toLocation,returnflightTimeFrom,returnflightTimeTo);
+
+        Map<String, List<Schedule>> flightsAndReturnFlights = new HashMap<String, List<Schedule>>();
+        flightsAndReturnFlights.put("toflights", toFlightList);
+        flightsAndReturnFlights.put("returnflights", returnFlightList);
+        return flightsAndReturnFlights;
+
+    }
 }
