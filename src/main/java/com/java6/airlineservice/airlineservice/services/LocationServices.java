@@ -16,4 +16,8 @@ public class LocationServices {
     List<Location> findByName(String name){
         return locationRepository.findByName(name);
     }
+
+    public Location addLocation(Location location) {
+        return locationRepository.save(location);
+    }
 }
