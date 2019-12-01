@@ -12,6 +12,12 @@
     <span th:text="${schedule.getDeptTime()}" />
     <span th:text="${schedule.getArrivalTime()}" />
     <span th:text="${schedule.getRemCapacity()}" />
+    <span th:text="${booking.bookingCode}"/>
 </div>
+
+    <form method="post" action="/booking/cancel">
+        <input type="hidden" name="bookingCode" th:value="${booking.bookingCode}">
+        <input class="btn btn-outline-dark" type="submit" value="Cancel Reservation">
+    </form>
 </body>
 </html>

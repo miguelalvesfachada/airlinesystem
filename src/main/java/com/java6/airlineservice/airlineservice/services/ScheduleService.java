@@ -33,4 +33,8 @@ public class ScheduleService {
         scheduleRepository.save(schedule);
     }
 
+    public Optional<Schedule> getScheduleById(Long id){
+        return scheduleRepository.findById(id);
+    }
+
 }

@@ -28,7 +28,7 @@ public class BookingController {
 
     @GetMapping ("/{id}")
     public String book (@PathVariable long id, Model model) {
-        Schedule schedule = scheduleService.getScheduleById(id);
+        Schedule schedule = scheduleService.getScheduleById(id).get();
         model.addAttribute("schedule", schedule);
         model.addAttribute("reservation", new Reservation());
         return "booking";
@@ -59,10 +59,15 @@ public class BookingController {
     public String manageBooking(@RequestParam("bookingCode") String bookingCode, Model model) {
         Reservation reservation =  bookingService.getBookingByCode(bookingCode);
         model.addAttribute("booking", reservation);
-        model.addAttribute("schedule", scheduleService.getScheduleById(reservation.getScheduleId()));
+        model.addAttribute("schedule", scheduleService.getScheduleById(reservation.getScheduleId()).get());
         return "show-booking";
     }
 
 
+    @PostMapping("/cancel")
+    public String setBookingStatusToCancel(Model model, Reservation reservation){
+        model.addAttribute(bookingService.cancelReservation(reservation));
+        return "cancel-booking-success";
+    }
 
 }
