@@ -18,14 +18,17 @@
 
 
 <div class="container">
+    <div class="row form-row" th:if="{bookingError}">
+        <span id="error-message" th:text="${bookingError}"></span>
+    </div>
     <div class="row form-row">
         <div class="card flight-card border-dark" th:each="schedule : ${schedules}">
             <a th:href="@{/book/{id}(id=${schedule.getId()})}" class="card-body">
-                <span th:text="${schedule.getFromAirportCode()}" />
-                <span th:text="${schedule.getToAirportCode()}" />
-                <span th:text="${schedule.getDeptTime()}" />
-                <span th:text="${schedule.getArrivalTime()}" />
-                <span th:text="${schedule.getRemCapacity()}" />
+                <span th:text="${schedule.fromAirportCode}" />
+                <span th:text="${schedule.toAirportCode}" />
+                <span th:text="${schedule.deptTime}" />
+                <span th:text="${schedule.arrivalTime}" />
+                <span th:text="${schedule.remCapacity}" />
             </a>
 
         </div>
