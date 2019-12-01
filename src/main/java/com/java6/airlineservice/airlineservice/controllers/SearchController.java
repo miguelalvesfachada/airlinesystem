@@ -29,4 +29,15 @@ public class SearchController {
         modelAndView.setViewName("flights");
         return modelAndView;
     }
+
+    @GetMapping("/search/return")
+    public ModelAndView searchForFlightSchedulesWithReturn(String fromLocation, String toLocation,
+                                                           @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate flightTime,
+                                                           @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate returnFlightTime){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("toschedules", scheduleService.searchForFlightSchedulesWithReturn(fromLocation,toLocation,flightTime,returnFlightTime).get("toflights"));
+        modelAndView.addObject("returnschedules", scheduleService.searchForFlightSchedulesWithReturn(fromLocation,toLocation,flightTime,returnFlightTime).get("returnflights"));
+        modelAndView.setViewName("flights-return");
+        return modelAndView;
+    }
 }

@@ -47,6 +47,10 @@ public class AdminController {
     @Autowired
     ScheduleRepository scheduleRepository;
 
+
+
+
+
     @GetMapping("/admin")
     public String returnAdminPage() {
         return "admin";
