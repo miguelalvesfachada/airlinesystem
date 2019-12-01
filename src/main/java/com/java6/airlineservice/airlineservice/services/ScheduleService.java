@@ -47,14 +47,14 @@ public class ScheduleService {
         LocalDateTime flightTimeTo = flightTimeFrom.plusDays(1).minusSeconds(1);
         LocalDateTime returnflightTimeFrom = returnFlightTime.atStartOfDay();
         LocalDateTime returnflightTimeTo = returnflightTimeFrom.plusDays(1).minusSeconds(1);
-        List<Schedule> toFlightList = scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetween(fromLocation,toLocation,flightTimeFrom,flightTimeTo);
+        List<Schedule> toFlightList = scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(fromLocation,toLocation,flightTimeFrom,flightTimeTo, 1);
 
         final String temp = fromLocation;
         fromLocation = toLocation;
         toLocation = temp;
 
 
-        List<Schedule> returnFlightList = scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetween(fromLocation,toLocation,returnflightTimeFrom,returnflightTimeTo);
+        List<Schedule> returnFlightList = scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(fromLocation,toLocation,returnflightTimeFrom,returnflightTimeTo, 1);
 
         Map<String, List<Schedule>> flightsAndReturnFlights = new HashMap<String, List<Schedule>>();
         flightsAndReturnFlights.put("toflights", toFlightList);
