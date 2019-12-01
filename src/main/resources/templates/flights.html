@@ -28,7 +28,7 @@
     </div>
     <div class="row form-row"  th:if="${!schedules.isEmpty()}">
         <div class="card flight-card border-dark" th:each="schedule : ${schedules}">
-            <a th:href="@{/book/{id}(id=${schedule.getId()})}" class="card-body">
+            <a th:href="@{/booking/{id}(id=${schedule.getId()})}" class="card-body">
                 <span th:text="${schedule.fromAirportCode}" />
                 <span th:text="${schedule.toAirportCode}" />
                 <span th:text="${schedule.deptTime}" />
