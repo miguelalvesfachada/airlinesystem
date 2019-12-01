@@ -3,39 +3,45 @@ package com.java6.airlineservice.airlineservice.controllers;
 
 import com.java6.airlineservice.airlineservice.models.Reservation;
 import com.java6.airlineservice.airlineservice.models.Schedule;
-import com.java6.airlineservice.airlineservice.repository.ScheduleRepository;
 import com.java6.airlineservice.airlineservice.services.BookingService;
+import com.java6.airlineservice.airlineservice.services.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 
 @Controller
+@RequestMapping("/booking")
 public class BookingController {
 
     @Autowired
     private BookingService bookingService;
     @Autowired
-    private ScheduleRepository scheduleRepository;
+    private ScheduleService scheduleService;
+
+    @GetMapping("/search-reservation")
+    public String returnSearchReservation(){
+        return "search-reservation";
+    }
 
 
-    @GetMapping ("/book/{id}")
+    @GetMapping ("/{id}")
     public String book (@PathVariable long id, Model model) {
-        Schedule schedule = scheduleRepository.getOne(id);
+        Schedule schedule = scheduleService.getScheduleById(id);
         model.addAttribute("schedule", schedule);
         model.addAttribute("reservation", new Reservation());
         return "booking";
     }
 
-    @GetMapping("/book/{toid}/{returnid}")
+    @GetMapping("/{toid}/{returnid}")
     public String bookWithReturn(@PathVariable long toid, @PathVariable long returnid, Model model){
-        Schedule toSchedule = scheduleRepository.getOne(toid);
-        Schedule returnSchedule = scheduleRepository.getOne(returnid);
+        Schedule toSchedule = scheduleService.getScheduleById(toid);
+        Schedule returnSchedule = scheduleService.getScheduleById(returnid);
         model.addAttribute("toSchedule", toSchedule);
         model.addAttribute("returnSchedule", returnSchedule);
         return "booking-with-return";
@@ -50,13 +56,25 @@ public class BookingController {
 }*/
 
 
-    @PostMapping("/booking/confirm")
+    @PostMapping("/confirm")
     public String confirmBooking (Model model, Reservation reservation) {
         Reservation savedReservation = bookingService.addBooking(reservation);
         model.addAttribute("bookingCode", savedReservation.getBookingCode());
         return "booking-successful";
     }
 
+    @GetMapping("/findbooking")
+    public String returnFindBookingPage(){
+        return "search-reservation";
+    }
+
+    @GetMapping("/manage")
+    public String manageBooking(@RequestParam("bookingCode") String bookingCode, Model model) {
+        Reservation reservation =  bookingService.getBookingByCode(bookingCode);
+        model.addAttribute("booking", reservation);
+        model.addAttribute("schedule", scheduleService.getScheduleById(reservation.getScheduleId()));
+        return "show-booking";
+    }
     @PostMapping("/booking-return/confirm")
     public String confirmBooking (Model model, Long toScheduleId, Long returnScheduleId, String name) {
         Reservation toReservation = bookingService.addBooking(Reservation.builder().name(name).scheduleId(toScheduleId).build());
@@ -69,5 +87,11 @@ public class BookingController {
 
 
 
+
+    @PostMapping("/cancel")
+    public String setBookingStatusToCancel(Model model, Reservation reservation){
+        model.addAttribute(bookingService.cancelReservation(reservation));
+        return "cancel-booking-success";
+    }
 
 }

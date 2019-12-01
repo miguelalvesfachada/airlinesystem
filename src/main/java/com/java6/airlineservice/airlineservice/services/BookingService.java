@@ -33,6 +33,21 @@ public class BookingService {
         return reservationRepository.save(reservation);
     }
 
+    public Reservation cancelReservation(Reservation reservation){
+       Reservation reservation1 = reservationRepository.findByBookingCode(reservation.getBookingCode()).get();
+       if(reservation1.getStatus().equals(ReservationStatus.CANCELLED)){
+           return reservation1;
+       }
+
+       reservation1.setStatus(ReservationStatus.CANCELLED);
+
+       return reservationRepository.save(reservation1);
+    }
+
+    public Reservation getBookingByCode(String bookingCode) {
+        return reservationRepository.findByBookingCode(bookingCode).get();
+    }
+
     private String generateBookingCode() {
 
         int length = 8;
