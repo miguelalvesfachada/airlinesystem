@@ -26,4 +26,7 @@ public class AirportServices {
     }
 
 
+    public Airport addAirport(Airport airport) {
+        return airportRepository.save(airport);
+    }
 }

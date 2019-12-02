@@ -13,4 +13,12 @@ public class FlightService{
 
     @Autowired
     FlightRepository flightRepository;
+
+    public List<Flight> findAllFlights() {
+        return flightRepository.findAll();
+    }
+
+    public Flight addFlight(Flight flight) {
+        return flightRepository.save(flight);
+    }
 }

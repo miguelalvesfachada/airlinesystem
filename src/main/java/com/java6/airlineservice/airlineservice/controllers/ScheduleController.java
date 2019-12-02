@@ -15,5 +15,6 @@ import java.util.Date;
 @Controller
 public class ScheduleController {
 
+    //TODO some sort of sorting mechanism to display schedules - by price, flight duration ... (possibly done in the front end by jquery)
 
 }

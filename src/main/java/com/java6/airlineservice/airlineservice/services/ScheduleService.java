@@ -62,4 +62,8 @@ public class ScheduleService {
         return flightsAndReturnFlights;
 
     }
+
+    public Schedule addSchedule(Schedule schedule) {
+        return scheduleRepository.save(schedule);
+    }
 }

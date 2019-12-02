@@ -28,27 +28,11 @@ public class AdminController {
     @Autowired
     AirportServices airportServices;
     @Autowired
-    AirportRepository airportRepository;
-
-    @Autowired
     LocationServices locationServices;
-
-    @Autowired
-    LocationRepository locationRepository;
-
     @Autowired
     FlightService flightService;
-
-    @Autowired
-    FlightRepository flightRepository;
     @Autowired
     ScheduleService scheduleService;
-
-    @Autowired
-    ScheduleRepository scheduleRepository;
-
-
-
 
 
     @GetMapping("/admin")
@@ -63,7 +47,7 @@ public class AdminController {
 
     @GetMapping("/schedule-admin")
     public String returnScheduleAdmin(Model model){
-        model.addAttribute("flights", flightRepository.findAll());
+        model.addAttribute("flights", flightService.findAllFlights());
         return "schedule-admin";
     }
 
@@ -81,7 +65,7 @@ public class AdminController {
     @PostMapping("/addairport")
     public ModelAndView addAirport(Airport airport) {
         ModelAndView model = new ModelAndView();
-        model.addObject(airportRepository.save(airport));
+        model.addObject("airport", airportServices.addAirport(airport));
         model.setViewName("airport-add-successful");
         return model;
 
@@ -89,7 +73,7 @@ public class AdminController {
         @PostMapping("/addschedule")
         public ModelAndView addSchedule(Schedule schedule){
             ModelAndView model= new ModelAndView();
-            model.addObject("schedule",scheduleRepository.save(schedule));
+            model.addObject("schedule",scheduleService.addSchedule(schedule));
             model.setViewName("schedule-add-successful");
             return model;
 
@@ -99,7 +83,7 @@ public class AdminController {
     @PostMapping("/addflight")
     public ModelAndView addFlight(Flight flight) {
         ModelAndView model = new ModelAndView();
-        model.addObject(flightRepository.save(flight));
+        model.addObject(flightService.addFlight(flight));
         model.setViewName("flight-add-successful");
         return model;
     }
@@ -107,9 +91,18 @@ public class AdminController {
     @PostMapping("/addlocation")
     public ModelAndView addLocation(Location location) {
         ModelAndView model = new ModelAndView();
-        model.addObject(locationRepository.save(location));
+        model.addObject(locationServices.addLocation(location));
         model.setViewName("location-add-successful");
         return model;
 
     }
+
+    //TODO display all flights
+    //TODO display all reservations (max 100 per page?)
+    //TODO display all locations
+    //TODO display all schedules (max 100 per page?)
+    //TODO editing functionality for the repositories
+    //TODO deleting functionality for the repositories
+    //TODO SPRING SECURITY for admin login
+
 }
