@@ -20,6 +20,8 @@ public class SearchParameters {
     private Long toLocationId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate flightTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate returnFlightTime;
     @Min(value = 1)
     private Integer numberOfPeople;
 

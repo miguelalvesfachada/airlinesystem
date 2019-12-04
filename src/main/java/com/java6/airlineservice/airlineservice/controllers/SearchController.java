@@ -52,12 +52,9 @@ public class SearchController {
     }
 
     @GetMapping("/search/return")
-    public ModelAndView searchForFlightSchedulesWithReturn(String fromLocation, String toLocation,
-                                                           @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate flightTime,
-                                                           @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate returnFlightTime){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("toschedules", scheduleService.searchForFlightSchedulesWithReturn(fromLocation,toLocation,flightTime,returnFlightTime).get("toflights"));
-        modelAndView.addObject("returnschedules", scheduleService.searchForFlightSchedulesWithReturn(fromLocation,toLocation,flightTime,returnFlightTime).get("returnflights"));
+    public ModelAndView searchForFlightSchedulesWithReturn(ModelAndView modelAndView, SearchParameters searchParameters){
+        modelAndView.addObject("toschedules", scheduleService.searchForFlightSchedulesWithReturn(searchParameters).get("toFlights"));
+        modelAndView.addObject("returnschedules", scheduleService.searchForFlightSchedulesWithReturn(searchParameters).get("returnFlights"));
         modelAndView.setViewName("flights-return");
         return modelAndView;
     }
