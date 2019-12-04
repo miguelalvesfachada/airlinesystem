@@ -42,42 +42,8 @@ public class SearchController {
     @GetMapping("/search")
     public ModelAndView searchForAvailableFlightSchedules(ModelAndView modelAndView, @Valid SearchParameters searchParameters){
 
-        Optional<Long> fromLocationId = Optional.ofNullable(searchParameters.getFromLocationId());
-        Optional<Long> toLocationId = Optional.ofNullable(searchParameters.getToLocationId());
 
-        if (fromLocationId.isPresent() && toLocationId.isPresent()) {
-            List<Airport> fromAirports = airportServices.findAllByLocationId(fromLocationId.get());
-            List<Airport> toAirports = airportServices.findAllByLocationId(toLocationId.get());
-            List<Schedule> schedules = new ArrayList<>();
-
-            for (Airport fromAirport: fromAirports) {
-                for (Airport toAirport: toAirports) {
-                    schedules.addAll(scheduleService.searchForAvailableFlightSchedules(fromAirport.getCode(),
-                            toAirport.getCode(), searchParameters.getFlightTime(),searchParameters.getNumberOfPeople()));
-                }
-            }
-            modelAndView.addObject("schedules", schedules);
-        } else if (fromLocationId.isPresent()) {
-            List<Airport> fromAirports = airportServices.findAllByLocationId(fromLocationId.get());
-            List<Schedule> schedules = new ArrayList<>();
-            for (Airport fromAirport: fromAirports) {
-                schedules.addAll(scheduleService.searchForAvailableFlightSchedules(fromAirport.getCode(),
-                        searchParameters.getToAirport(), searchParameters.getFlightTime(),searchParameters.getNumberOfPeople()));
-            }
-            modelAndView.addObject("schedules", schedules);
-        } else if (toLocationId.isPresent()) {
-            List<Airport> toAirports = airportServices.findAllByLocationId(toLocationId.get());
-            List<Schedule> schedules = new ArrayList<>();
-            for (Airport toAirport: toAirports) {
-                schedules.addAll(scheduleService.searchForAvailableFlightSchedules(searchParameters.getFromAirport(),
-                        toAirport.getCode(), searchParameters.getFlightTime(),searchParameters.getNumberOfPeople()));
-            }
-            modelAndView.addObject("schedules", schedules);
-        } else {
-            modelAndView.addObject("schedules", scheduleService.searchForAvailableFlightSchedules(searchParameters.getFromAirport(),
-                        searchParameters.getToAirport(),searchParameters.getFlightTime(),searchParameters.getNumberOfPeople()));
-        }
-
+        modelAndView.addObject("schedules", scheduleService.searchForAvailableFlightSchedules(searchParameters));
         modelAndView.addObject("bookingError", "");
 
 

@@ -20,14 +20,49 @@ public class ScheduleService {
 
     @Autowired
     ScheduleRepository scheduleRepository;
+    @Autowired
+    AirportServices airportServices;
 
-    public List<Schedule> searchForAvailableFlightSchedules(String fromLocation, String toLocation,
-                                                            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate flightTime,
-                                                            Integer numberOfPeople) {
-        LocalDateTime flightTimeFrom = flightTime.atStartOfDay();
+    public List<Schedule> searchForAvailableFlightSchedules(SearchParameters searchParameters) {
+        Optional<Long> fromLocationId = Optional.ofNullable(searchParameters.getFromLocationId());
+        Optional<Long> toLocationId = Optional.ofNullable(searchParameters.getToLocationId());
+        LocalDateTime flightTimeFrom = searchParameters.getFlightTime().atStartOfDay();
         LocalDateTime flightTimeTo = flightTimeFrom.plusDays(1).minusSeconds(1);
-        System.out.println(flightTimeFrom + "::" + flightTimeTo);
-        return scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(fromLocation, toLocation, flightTimeFrom, flightTimeTo, numberOfPeople);
+
+        if (fromLocationId.isPresent() && toLocationId.isPresent()) {
+            List<Airport> fromAirports = airportServices.findAllByLocationId(fromLocationId.get());
+            List<Airport> toAirports = airportServices.findAllByLocationId(toLocationId.get());
+            List<Schedule> schedules = new ArrayList<>();
+
+
+            for (Airport fromAirport: fromAirports) {
+                for (Airport toAirport: toAirports) {
+                    schedules.addAll(scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(fromAirport.getCode(),
+                            toAirport.getCode(),flightTimeFrom,flightTimeTo, searchParameters.getNumberOfPeople()));
+                }
+            }
+            return schedules;
+
+        } else if (fromLocationId.isPresent()) {
+            List<Airport> fromAirports = airportServices.findAllByLocationId(fromLocationId.get());
+            List<Schedule> schedules = new ArrayList<>();
+            for (Airport fromAirport: fromAirports) {
+                schedules.addAll(scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(fromAirport.getCode(),
+                        searchParameters.getToAirport(), flightTimeFrom, flightTimeTo,searchParameters.getNumberOfPeople()));
+            }
+            return schedules;
+        } else if (toLocationId.isPresent()) {
+            List<Airport> toAirports = airportServices.findAllByLocationId(toLocationId.get());
+            List<Schedule> schedules = new ArrayList<>();
+            for (Airport toAirport: toAirports) {
+                schedules.addAll(scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(searchParameters.getFromAirport(),
+                        toAirport.getCode(), flightTimeFrom, flightTimeTo,searchParameters.getNumberOfPeople()));
+            }
+            return schedules;
+        } else {
+            return scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(searchParameters.getFromAirport(),
+                    searchParameters.getToAirport(), flightTimeFrom, flightTimeTo, searchParameters.getNumberOfPeople());
+        }
     }
 
     public Schedule getScheduleById (Long scheduleId){

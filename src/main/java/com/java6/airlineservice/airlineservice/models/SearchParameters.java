@@ -22,4 +22,11 @@ public class SearchParameters {
     private LocalDate flightTime;
     @Min(value = 1)
     private Integer numberOfPeople;
+
+    public SearchParameters(String fromAirport, String toAirport, LocalDate flightTime, @Min(value = 1) Integer numberOfPeople) {
+        this.fromAirport = fromAirport;
+        this.toAirport = toAirport;
+        this.flightTime = flightTime;
+        this.numberOfPeople = numberOfPeople;
+    }
 }
