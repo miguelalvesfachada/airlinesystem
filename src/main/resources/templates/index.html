@@ -33,16 +33,16 @@
                             <label for="fromLocation">From</label>
                             <input autocomplete="off" type="text" class="form-control" id="fromLocation" name="fromAirport" placeholder="From..." list="locationlist">
                             <datalist id="locationlist">
-                                <option class="airportoption" th:each="airport : ${airports}" th:value="${airport.code}" th:text="${airport.name}">
-                                <option class="locationoption" th:each="location : ${locations}" th:value="${location.id}" th:text="${location.name} + ' (All airports)'">
+                                <option class="airportoption" th:each="airport : ${airports}" th:attr="data-value=${airport.code}" th:value="${airport.name}">
+                                <option class="locationoption" th:each="location : ${locations}" th:attr="data-value=${location.id}" th:value="${location.name} + ' (All airports)'">
                             </datalist>
                         </div>
                             <div class="form-group">
                             <label for="toLocation">To</label>
                             <input autocomplete="off" type="text" class="form-control" id="toLocation"  name="toAirport" placeholder="To..." list="locationlist2">
                                 <datalist id="locationlist2">
-                                    <option class="airportoption" th:each="airport : ${airports}" th:value="${airport.code}" th:text="${airport.name}">
-                                    <option class="locationoption" th:each="location : ${locations}" th:value="${location.id}" th:text="${location.name} + ' (All airports)'">
+                                    <option class="airportoption" th:each="airport : ${airports}" th:attr="data-value=${airport.code}" th:value="${airport.name}">
+                                    <option class="locationoption" th:each="location : ${locations}" th:attr="data-value=${location.id}" th:value="${location.name} + ' (All airports)'">
                                 </datalist>
                         </div>
                         <div class="form-group" id="toFlightTimeDiv">

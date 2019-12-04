@@ -61,27 +61,33 @@ $(document).ready(function() {
     $("#search-submit").click(function () {
 
 
+
+
         if ($("#locationlist option:selected").hasClass("locationoption")) {
             $("#fromLocation").attr({
                 name: "fromLocationId",
-                type: "number"
+                    type: "hidden",
+                value: $("#locationlist option:selected").attr('data-value')
             });
         } else {
             $("#fromLocation").attr({
                 name: "fromAirport",
-                type: "text"
+                type: "hidden",
+                value: $("#locationlist option:selected").attr('data-value')
             });
         }
 
         if ($("#locationlist2 option:selected").hasClass("locationoption")) {
             $("#toLocation").attr({
                 name: "toLocationId",
-                type: "number"
+                type: "hidden",
+                value: $("#locationlist2 option:selected").attr('data-value')
             });
         } else {
             $("#toLocation").attr({
                 name: "toAirport",
-                type: "text"
+                type: "hidden",
+                value: $("#locationlist2 option:selected").attr('data-value')
             });
         }
 
