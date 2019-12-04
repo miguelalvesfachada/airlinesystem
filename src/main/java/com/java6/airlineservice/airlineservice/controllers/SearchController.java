@@ -59,7 +59,5 @@ public class SearchController {
         return modelAndView;
     }
 
-    //TODO schedules by location
-    //TODO some smart autocomplete functionality for the user interface
 
 }
