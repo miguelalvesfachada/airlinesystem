@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Airline Service</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 
@@ -20,7 +20,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <div class="form-group">
+                    <div class="form-group radio-group">
 
                         One-way<input id="onewayradio" type="radio" name="onewayreturn" value="oneway" checked>
 
@@ -31,15 +31,23 @@
 
                         <div class="form-group">
                             <label for="fromLocation">From</label>
-                            <input type="text" class="form-control" id="fromLocation" name="fromLocation" placeholder="From...">
+                            <input autocomplete="off" type="text" class="form-control" id="fromLocation" name="fromAirport" placeholder="From..." list="locationlist">
+                            <datalist id="locationlist">
+                                <option class="airportoption" th:each="airport : ${airports}" th:value="${airport.code}" th:text="${airport.name}">
+                                <option class="locationoption" th:each="location : ${locations}" th:value="${location.id}" th:text="${location.name} + ' (All airports)'">
+                            </datalist>
                         </div>
                             <div class="form-group">
                             <label for="toLocation">To</label>
-                            <input type="text" class="form-control" id="toLocation"  name="toLocation" placeholder="To...">
+                            <input autocomplete="off" type="text" class="form-control" id="toLocation"  name="toAirport" placeholder="To..." list="locationlist2">
+                                <datalist id="locationlist2">
+                                    <option class="airportoption" th:each="airport : ${airports}" th:value="${airport.code}" th:text="${airport.name}">
+                                    <option class="locationoption" th:each="location : ${locations}" th:value="${location.id}" th:text="${location.name} + ' (All airports)'">
+                                </datalist>
                         </div>
                         <div class="form-group" id="toFlightTimeDiv">
                             <label class="datepicker" for="flightTime">Pick a start date</label>
-                            <input type="date" id="flightTime" name="flightTime">
+                            <input type="date" id="flightTime" name="flightTime" th:min="${currentTime}" max="">
                         </div>
                         <div class="form-group" id="returnFlightTimeDiv">
 
@@ -48,11 +56,11 @@
 
                         <div class="form-group">
                             <label for="numberOfPeople">How many passengers are you booking for?</label>
-                            <input type="number" min="1" class="form-control" id="numberOfPeople"  name="numberOfPeople">
+                            <input type="number" min="1" max="8" class="form-control" id="numberOfPeople"  name="numberOfPeople" value="1">
                         </div>
 
 
-                        <input class="btn btn-outline-dark" type="submit" value="Submit">
+                        <input id="search-submit" class="btn btn-outline-dark" type="submit" value="Submit">
 
                     </form>
                 </div>
