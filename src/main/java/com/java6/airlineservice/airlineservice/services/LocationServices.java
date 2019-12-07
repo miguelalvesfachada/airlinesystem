@@ -24,4 +24,6 @@ public class LocationServices {
     public List<Location> findAllLocations() {
         return locationRepository.findAll();
     }
+
+    public void deleteLocation(Location location) { locationRepository.delete(location);}
 }
