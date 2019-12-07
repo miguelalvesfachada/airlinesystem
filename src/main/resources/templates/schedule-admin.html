@@ -12,6 +12,9 @@
     <a class="navbar-brand text-white-50" href="/">
         Airline Service
     </a>
+    <a class="navbar-brand text-white-50" href="/logout">
+        Logout
+    </a>
 </nav>
 
 
@@ -40,6 +43,38 @@
 
 
                     <input class="btn btn-outline-dark" type="submit" value="Add Schedule">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row form-row">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="/deleteschedule">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="fromAirportCode" placeholder="From Airport Code...">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="toAirportCode" placeholder="To Airport Code...">
+                    </div>
+                    <div class="form-group">
+                        <input type="datetime-local" class="form-control" name="deptTime" placeholder="Departure Time...">
+                    </div>
+                    <div class="form-group">
+                        <input type="datetime-local" class="form-control" name="arrivalTime" placeholder="Arrival Time...">
+                    </div>
+                    <div class="form-group">
+                        <select name="remCapacity" th:each="flight : ${flights}">
+                            <option th:text="${flight.name}" th:value="${flight.capacity}"></option>
+                        </select>
+                    </div>
+
+
+                    <input class="btn btn-outline-dark" type="submit" value="Delete Schedule">
 
                 </form>
             </div>
