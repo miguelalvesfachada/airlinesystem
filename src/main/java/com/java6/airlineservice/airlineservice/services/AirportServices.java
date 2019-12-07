@@ -30,6 +30,10 @@ public class AirportServices {
         return airportRepository.save(airport);
     }
 
+    public void deleteAirport(Airport airport){
+        airportRepository.delete(airport);
+    }
+
     public List<Airport> findAllAirports() {
         return airportRepository.findAll();
     }
