@@ -1,17 +1,10 @@
 package com.java6.airlineservice.airlineservice.controllers;
 
-import com.java6.airlineservice.airlineservice.models.Airport;
-import com.java6.airlineservice.airlineservice.models.Schedule;
-import com.java6.airlineservice.airlineservice.models.Flight;
-import com.java6.airlineservice.airlineservice.models.Location;
-import com.java6.airlineservice.airlineservice.services.AirportServices;
-import com.java6.airlineservice.airlineservice.services.FlightService;
-import com.java6.airlineservice.airlineservice.services.LocationServices;
-import com.java6.airlineservice.airlineservice.services.ScheduleService;
+import com.java6.airlineservice.airlineservice.models.*;
+import com.java6.airlineservice.airlineservice.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,13 +43,6 @@ public class AdminController {
     public String returnScheduleAdmin(Model model){
         model.addAttribute("flights", flightService.findAllFlights());
         return "schedule-admin";
-    }
-
-
-    @GetMapping("/flight-admin")
-    @Secured("ROLE_FLIGHT_WRITE")
-    public String returnFlightAdmin() {
-        return "flight-admin";
     }
 
     @GetMapping("/location-admin")
@@ -154,6 +140,7 @@ public class AdminController {
     }
 
     @GetMapping("/flight-admin")
+    @Secured("ROLE_FLIGHT_WRITE")
     public ModelAndView viewAllFlights() {
         ModelAndView model = new ModelAndView();
         model.addObject("flights",flightService.findAllFlights());
