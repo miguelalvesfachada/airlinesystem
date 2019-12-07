@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Airline Service</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 
@@ -21,22 +21,25 @@
 
 
     <div class="row form-row">
-        <div class="card flight-card">
+        <div class="card flight-card ">
             <form method="post" th:action="@{/booking/confirm}" th:object="${reservation}" class="booking-form">
 
-                <div class="card flight-card border-dark">
-                    <span th:text="${schedule.getFromAirportCode()}" />
-                    <span th:text="${schedule.getToAirportCode()}" />
-                    <span th:text="${schedule.getDeptTime()}" />
-                    <span th:text="${schedule.getArrivalTime()}" />
-                    <span th:text="${schedule.getRemCapacity()}" />
+                <div class="card w-100 flight-card border-dark">
+                    Departure time: <span th:text="${schedule.deptTime.hour} + ':' + ${schedule.deptTime.minute}" />
+                    Arrival time: <span th:text="${schedule.arrivalTime.hour} + ':' + ${schedule.arrivalTime.minute}" />
+
+                    <p th:each="airport : ${airports}" th:if="${schedule.toAirportCode == airport.code}" th:text="${airport.name} + ' (' + ${airport.code} + ')'"></p>
+                    <p th:each="airport : ${airports}" th:if="${schedule.fromAirportCode == airport.code}" th:text="${airport.name} + ' (' + ${airport.code} + ')'"></p>
+
+                </div>
+                <div class="w-100">
+                    <label for="bookerName">Your Name</label>
+                    <input type="hidden" th:attr="name='scheduleId'" th:value="${schedule.getId()}">
+                    <input type="text" th:field="*{name}" class="form-control" name="name" id="bookerName" placeholder="Full Name..." required  >
+
+                    <input class="btn btn-outline-dark" type="submit" value="Submit">
                 </div>
 
-                <label for="bookerName">Your Name</label>
-                <input type="hidden" th:attr="name='scheduleId'" th:value="${schedule.getId()}">
-                <input type="text" th:field="*{name}" class="form-control" name="name" id="bookerName" placeholder="Full Name...">
-
-                <input class="btn btn-outline-dark" type="submit" value="Submit">
             </form>
         </div>
     </div>

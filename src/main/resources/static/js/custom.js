@@ -64,29 +64,25 @@ $(document).ready(function() {
 
 
         if ($("#locationlist option:selected").hasClass("locationoption")) {
-            $("#fromLocation").attr({
+            $("#formFromInput").attr({
                 name: "fromLocationId",
-                    type: "hidden",
                 value: $("#locationlist option:selected").attr('data-value')
             });
         } else {
-            $("#fromLocation").attr({
+            $("#formFromInput").attr({
                 name: "fromAirport",
-                type: "hidden",
                 value: $("#locationlist option:selected").attr('data-value')
             });
         }
 
         if ($("#locationlist2 option:selected").hasClass("locationoption")) {
-            $("#toLocation").attr({
+            $("#formToInput").attr({
                 name: "toLocationId",
-                type: "hidden",
                 value: $("#locationlist2 option:selected").attr('data-value')
             });
         } else {
-            $("#toLocation").attr({
+            $("#formToInput").attr({
                 name: "toAirport",
-                type: "hidden",
                 value: $("#locationlist2 option:selected").attr('data-value')
             });
         }

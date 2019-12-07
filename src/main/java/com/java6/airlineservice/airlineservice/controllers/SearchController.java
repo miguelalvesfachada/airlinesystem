@@ -44,6 +44,8 @@ public class SearchController {
 
 
         modelAndView.addObject("schedules", scheduleService.searchForAvailableFlightSchedules(searchParameters));
+        modelAndView.addObject("search", searchParameters);
+        modelAndView.addObject("airports", airportServices.findAllAirports());
         modelAndView.addObject("bookingError", "");
 
 

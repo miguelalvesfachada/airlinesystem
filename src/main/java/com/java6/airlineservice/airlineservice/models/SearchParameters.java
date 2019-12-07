@@ -16,6 +16,8 @@ import java.util.Optional;
 public class SearchParameters {
     private String fromAirport;
     private String toAirport;
+    private String searchFromInput;
+    private String searchToInput;
     private Long fromLocationId;
     private Long toLocationId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
