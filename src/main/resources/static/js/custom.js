@@ -4,7 +4,6 @@ $(document).ready(function() {
         $('#returnFlightTimeDiv').css('visibility', 'visible');
         $('#returnFlightTimeDiv').append('<label class="datepicker" for="returnFlightTime">Pick a return date</label>' +
             '<input type="date" id="returnFlightTime" name="returnFlightTime" min="">');
-        $('#searchflights').attr('action', '/search/return');
 
         $("#returnFlightTime").attr("min", $("#flightTime").val());
 
@@ -18,7 +17,6 @@ $(document).ready(function() {
         $('#returnFlightTimeDiv').css('visibility', 'hidden');
         $("input[name='returnFlightTime']").remove();
         $("label[for='returnFlightTime']").remove();
-        $('#searchflights').attr('action', '/search');
         $("#flightTime").attr("max", null);
     });
 

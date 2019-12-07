@@ -42,24 +42,28 @@ public class SearchController {
     @GetMapping("/search")
     public ModelAndView searchForAvailableFlightSchedules(ModelAndView modelAndView, @Valid SearchParameters searchParameters){
 
-
-        modelAndView.addObject("schedules", scheduleService.searchForAvailableFlightSchedules(searchParameters));
         modelAndView.addObject("search", searchParameters);
-        modelAndView.addObject("airports", airportServices.findAllAirports());
         modelAndView.addObject("bookingError", "");
-
-
         modelAndView.setViewName("flights");
-        return modelAndView;
-    }
 
-    @GetMapping("/search/return")
-    public ModelAndView searchForFlightSchedulesWithReturn(ModelAndView modelAndView, SearchParameters searchParameters){
+        if (!searchParameters.isReturnFlight()){
+            modelAndView.addObject("schedules", scheduleService.searchForAvailableFlightSchedules(searchParameters));
+
+            modelAndView.addObject("airports", airportServices.findAllAirports());
+            modelAndView.addObject("bookingError", "");
+
+
+
+            return modelAndView;
+        }
+
         modelAndView.addObject("toschedules", scheduleService.searchForFlightSchedulesWithReturn(searchParameters).get("toFlights"));
         modelAndView.addObject("returnschedules", scheduleService.searchForFlightSchedulesWithReturn(searchParameters).get("returnFlights"));
-        modelAndView.setViewName("flights-return");
+
         return modelAndView;
+
     }
+
 
 
 }

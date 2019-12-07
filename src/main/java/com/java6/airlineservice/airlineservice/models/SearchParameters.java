@@ -14,6 +14,7 @@ import java.util.Optional;
 @Data
 @NoArgsConstructor
 public class SearchParameters {
+    private boolean returnFlight=false;
     private String fromAirport;
     private String toAirport;
     private String searchFromInput;
