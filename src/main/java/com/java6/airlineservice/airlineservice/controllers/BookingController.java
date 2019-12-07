@@ -24,7 +24,8 @@ public class BookingController {
     @Autowired
     private ScheduleService scheduleService;
 
-    @GetMapping("/search-reservation")
+
+    @GetMapping("/search")
     public String returnSearchReservation(){
         return "search-reservation";
     }
@@ -68,6 +69,7 @@ public class BookingController {
         return "search-reservation";
     }
 
+    //TODO add some reservetion editing functionality: change reservation name,?,?...
     @GetMapping("/manage")
     public String manageBooking(@RequestParam("bookingCode") String bookingCode, Model model) {
         Reservation reservation =  bookingService.getBookingByCode(bookingCode);
@@ -93,5 +95,7 @@ public class BookingController {
         model.addAttribute(bookingService.cancelReservation(reservation));
         return "cancel-booking-success";
     }
+
+    //TODO agree on the terminology - reservation vs booking, and keep using only one. Start changing the names carefully.
 
 }

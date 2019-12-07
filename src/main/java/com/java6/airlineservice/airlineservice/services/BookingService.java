@@ -33,6 +33,7 @@ public class BookingService {
         return reservationRepository.save(reservation);
     }
 
+    //TODO reduce schedule capacity after cancelling reservation
     public Reservation cancelReservation(Reservation reservation){
        Reservation reservation1 = reservationRepository.findByBookingCode(reservation.getBookingCode()).get();
        if(reservation1.getStatus().equals(ReservationStatus.CANCELLED)){

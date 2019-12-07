@@ -26,4 +26,11 @@ public class AirportServices {
     }
 
 
+    public Airport addAirport(Airport airport) {
+        return airportRepository.save(airport);
+    }
+
+    public List<Airport> findAllAirports() {
+        return airportRepository.findAll();
+    }
 }

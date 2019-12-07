@@ -54,3 +54,7 @@ a:hover {
 #returnFlightTimeDiv {
     visibility: hidden;
 }
+
+.radio-group input{
+    margin: 0 15px 0 5px;
+}
