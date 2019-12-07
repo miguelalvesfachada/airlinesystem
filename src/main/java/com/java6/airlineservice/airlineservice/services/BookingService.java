@@ -5,8 +5,12 @@ import com.java6.airlineservice.airlineservice.models.ReservationStatus;
 import com.java6.airlineservice.airlineservice.models.Schedule;
 import com.java6.airlineservice.airlineservice.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -64,6 +68,15 @@ public class BookingService {
 
     private boolean checkIfBookingCodeExists(String bookingCode){
         return reservationRepository.findByBookingCode(bookingCode).isPresent();
+    }
+
+    public List<Reservation> findAllReservations() {
+        return reservationRepository.findAll();
+    }
+
+    public Page<Reservation> findAllReservations(int page) {
+        Pageable pageable = PageRequest.of(page, 2);
+        return reservationRepository.findAll(pageable);
     }
 
 }

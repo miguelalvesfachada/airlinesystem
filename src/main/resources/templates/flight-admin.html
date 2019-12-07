@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Airline Service</title>
@@ -33,6 +33,26 @@
                     <input class="btn btn-outline-dark" type="submit" value="Add Flight">
 
                 </form>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Flight Name</th>
+                        <th scope="col">Flight Capacity</th>
+
+                    </tr>
+                    </thead>
+                    <p>
+                    <tbody>
+                    <tr th:each="flight : ${flights}" >
+                        <td><span th:text="${flight.name}" /></td>
+                        <td><span th:text="${flight.capacity}" /></td>
+                        <td><a th:href="@{/delete-flight/{id}(id=${flight.id})}"> Delete </a></td>
+                        <td><a th:href="@{/edit-flight/{id}(id=${flight.id})}"> Edit </a></td>
+                    </tr>
+                    </tbody>
+                    </p>
+                </table>
             </div>
         </div>
     </div>
