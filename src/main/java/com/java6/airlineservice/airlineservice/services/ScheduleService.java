@@ -167,6 +167,8 @@ public class ScheduleService {
         return scheduleRepository.save(schedule);
     }
 
+    public void deleteSchedule(Schedule schedule){ scheduleRepository.delete(schedule);}
+
 
 
 }
