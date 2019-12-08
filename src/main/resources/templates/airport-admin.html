@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Airline Service</title>
@@ -36,29 +36,31 @@
                     <input class="btn btn-outline-dark" type="submit" value="Add Airport">
 
                 </form>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="container">
-    <div class="row form-row">
-        <div class="card">
-            <div class="card-body">
-                <form method="post" action="/deleteairport">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="locationId" placeholder="Location ID...">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="code" placeholder="Airport Code...">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Airport Name...">
-                    </div>
 
-                    <input class="btn btn-outline-dark" type="submit" value="Delete Airport">
-
-                </form>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Airport Code</th>
+                        <th scope="col">Airport Name</th>
+                        <th scope="col" colspan="3">Airport Location_ID</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="airport : ${airports}">
+                        <td><span th:text="${airport.code}" ></span></td>
+                        <td><span th:text="${airport.name}" ></span></td>
+                        <td><span th:text="${airport.locationId}" ></span></td>
+                        <td><a th:href="@{/edit-flight/{id}(id=${airport.id})}"> Edit </a></td>
+                        <td>
+                            <form method="post" action="/delete-airport">
+                                <input type="hidden" name="id" th:value="${airport.id}">
+                                <input type="submit" class="btn btn-outline-dark" value="Delete" >
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -34,7 +34,8 @@ public class AdminController {
 
     @GetMapping("/airport-admin")
     @Secured("ROLE_AIRPORT_WRITE")
-    public String returnAirportAdmin() {
+    public String returnAirportAdmin(Model model) {
+        model.addAttribute("airports", airportServices.findAllAirports());
         return "airport-admin";
     }
 
