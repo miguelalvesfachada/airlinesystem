@@ -100,6 +100,16 @@ $(document).ready(function() {
             action: "/booking/manage/edit"
         });
     });
+    
+    $('#flightModalButton').click(function (event) {
+        var button = $(this);
+        var flightName = button.data('object-name');
+        var flightCapacity = button.data('object-capacity');
+
+        $('#name').val(flightName);
+        $('#capacity').val(flightCapacity);
+        $('.modal-title').text('Edit flight: ' + flightName);
+    });
 
 });
 
