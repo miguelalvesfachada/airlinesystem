@@ -47,7 +47,8 @@ public class AdminController {
 
     @GetMapping("/location-admin")
     @Secured("ROLE_LOCATION_WRITE")
-    public String returnLocationAdmin() {
+    public String returnLocationAdmin(Model model) {
+        model.addAttribute("locations", locationServices.findAllLocations());
         return "location-admin";
     }
 
