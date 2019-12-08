@@ -37,6 +37,12 @@ public class BookingService {
         return reservationRepository.save(reservation);
     }
 
+    public Reservation editReservationName(Reservation reservation) {
+        Reservation changedReservation = reservationRepository.findByBookingCode(reservation.getBookingCode()).get();
+        changedReservation.setName(reservation.getName());
+        return reservationRepository.save(changedReservation);
+    }
+
     //TODO reduce schedule capacity after cancelling reservation
     public Reservation cancelReservation(Reservation reservation){
        Reservation reservation1 = reservationRepository.findByBookingCode(reservation.getBookingCode()).get();

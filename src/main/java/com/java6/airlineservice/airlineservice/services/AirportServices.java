@@ -37,4 +37,8 @@ public class AirportServices {
     public List<Airport> findAllAirports() {
         return airportRepository.findAll();
     }
+
+    public Airport editAirport(Airport airport) {
+        return airportRepository.save(airport);
+    }
 }
