@@ -47,7 +47,8 @@ public class AdminController {
 
     @GetMapping("/location-admin")
     @Secured("ROLE_LOCATION_WRITE")
-    public String returnLocationAdmin() {
+    public String returnLocationAdmin(Model model) {
+        model.addAttribute("locations", locationServices.findAllLocations());
         return "location-admin";
     }
 
@@ -74,6 +75,15 @@ public class AdminController {
 
     }
 
+    @PostMapping("/editairport")
+    @Secured("ROLE_AIRPORT_WRITE")
+    public ModelAndView editAirport(Airport airport) {
+        ModelAndView model = new ModelAndView();
+        model.addObject("airport", airportServices.editAirport(airport));
+        model.setViewName("airport-edit-successful");
+        return model;
+    }
+
     @PostMapping("/addschedule")
     @Secured("ROLE_SCHEDULE_WRITE")
     public ModelAndView addSchedule(Schedule schedule){
@@ -97,6 +107,15 @@ public class AdminController {
 
     }
 
+    @PostMapping("/editschedule")
+    @Secured("ROLE_SCHEDULE_WRITE")
+    public ModelAndView editSchedule(Schedule schedule) {
+        ModelAndView model = new ModelAndView();
+        model.addObject("schedule", scheduleService.editSchedule(schedule));
+        model.setViewName("schedule-edit-successful");
+        return model;
+    }
+
     @PostMapping("/addflight")
     @Secured("ROLE_FLIGHT_WRITE")
     public ModelAndView addFlight(Flight flight) {
@@ -114,6 +133,15 @@ public class AdminController {
         flightService.deleteFlight(flight);
         model.addObject("flight", flight);
         model.setViewName("flight-delete-successful");
+        return model;
+    }
+
+    @PostMapping("/editflight")
+    @Secured("ROLE_FLIGHT_WRITE")
+    public ModelAndView editFlight(Flight flight) {
+        ModelAndView model = new ModelAndView();
+        model.addObject("flight", flightService.editFlight(flight));
+        model.setViewName("flight-edit-successful");
         return model;
     }
 
@@ -137,6 +165,15 @@ public class AdminController {
         model.setViewName("location-delete-successful");
         return model;
 
+    }
+
+    @PostMapping("/editlocation")
+    @Secured("ROLE_LOCATION_WRITE")
+    public ModelAndView editLocation(Location location) {
+        ModelAndView model = new ModelAndView();
+        model.addObject("location", locationServices.editLocation(location));
+        model.setViewName("location-edit-successful");
+        return model;
     }
 
     @GetMapping("/flight-admin")

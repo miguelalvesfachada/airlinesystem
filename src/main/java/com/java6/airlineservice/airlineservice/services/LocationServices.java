@@ -26,4 +26,8 @@ public class LocationServices {
     }
 
     public void deleteLocation(Location location) { locationRepository.delete(location);}
+
+    public Location editLocation(Location location) {
+        return locationRepository.save(location);
+    }
 }

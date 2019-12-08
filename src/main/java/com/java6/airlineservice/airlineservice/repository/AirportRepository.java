@@ -10,4 +10,5 @@ public interface AirportRepository extends JpaRepository <Airport,Long> {
     List<Airport> findAllByCode(String code);
     List<Airport> findAllByName (String name);
     List<Airport> findAllByLocationId (Long locationId);
+    List<Airport> findAllById (Long airportId);
 }
