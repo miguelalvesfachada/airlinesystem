@@ -47,7 +47,9 @@
                     <tr th:each="flight : ${flights}" >
                         <td><span th:text="${flight.name}" /></td>
                         <td><span th:text="${flight.capacity}" /></td>
-                        <td><a th:href="@{/delete-flight/{id}(id=${flight.id})}"> Delete </a></td>
+                        <td>
+                            <a th:href="@{/delete-flight/(id=${flight.id})}"> Delete </a>
+                        </td>
                         <td><a th:href="@{/edit-flight/{id}(id=${flight.id})}"> Edit </a></td>
                     </tr>
                     </tbody>
@@ -58,7 +60,7 @@
     </div>
 </div>
 
-<div class="container">
+<!--<div class="container">
     <div class="row form-row">
         <div class="card">
             <div class="card-body">
@@ -76,7 +78,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 
 
