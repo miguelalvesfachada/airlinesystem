@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Airline Service</title>
@@ -41,9 +41,11 @@
         <div class="card">
             <div class="card-body">
                 <form method="post" action="/deletelocation">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Location Name...">
-                    </div>
+
+
+                    <select name="id" th:each="location : ${locations}">
+                        <option th:text="${location.name}" th:value="${location.id}"></option>
+                    </select>
 
 
                     <input class="btn btn-outline-dark" type="submit" value="Delete Location">
