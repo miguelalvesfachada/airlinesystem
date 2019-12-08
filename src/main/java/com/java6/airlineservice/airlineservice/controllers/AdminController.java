@@ -34,7 +34,8 @@ public class AdminController {
 
     @GetMapping("/airport-admin")
     @Secured("ROLE_AIRPORT_WRITE")
-    public String returnAirportAdmin() {
+    public String returnAirportAdmin(Model model) {
+        model.addAttribute("airports", airportServices.findAllAirports());
         return "airport-admin";
     }
 
@@ -126,7 +127,7 @@ public class AdminController {
         return model;
     }
 
-    @GetMapping("/delete-flight")
+    @PostMapping("/delete-flight")
     @Secured("ROLE_FLIGHT_WRITE")
     public ModelAndView deleteFlight(Flight flight){
         ModelAndView model = new ModelAndView();
