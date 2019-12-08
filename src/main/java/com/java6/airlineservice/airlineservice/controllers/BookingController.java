@@ -73,13 +73,13 @@ public class BookingController {
         return "search-reservation";
     }
 
-    //TODO add some reservetion editing functionality: change reservation name,?,?...
     @GetMapping("/manage")
     public String manageBooking(@RequestParam("bookingCode") String bookingCode, Model model) {
         Reservation reservation =  bookingService.getBookingByCode(bookingCode);
         model.addAttribute("booking", reservation);
+        model.addAttribute("airports", airportServices.findAllAirports());
         model.addAttribute("schedule", scheduleService.getScheduleById(reservation.getScheduleId()));
-        return "show-booking";
+        return "manage-booking";
     }
     @PostMapping("/booking-return/confirm")
     public String confirmBooking (Model model, Long toScheduleId, Long returnScheduleId, String name) {
@@ -94,9 +94,15 @@ public class BookingController {
 
 
 
-    @PostMapping("/cancel")
+    @PostMapping("/manage/cancel")
     public String setBookingStatusToCancel(Model model, Reservation reservation){
         model.addAttribute(bookingService.cancelReservation(reservation));
+        return "cancel-booking-success";
+    }
+
+    @PostMapping("/manage/edit")
+    public String editReservationName(Model model, Reservation reservation){
+        model.addAttribute(bookingService.editReservationName(reservation));
         return "cancel-booking-success";
     }
 

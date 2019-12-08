@@ -137,12 +137,13 @@ public class AdminController {
         return model;
     }
 
-    @PostMapping("/editflight")
+    @PostMapping("/admin/manage/edit/flight")
     @Secured("ROLE_FLIGHT_WRITE")
     public ModelAndView editFlight(Flight flight) {
         ModelAndView model = new ModelAndView();
-        model.addObject("flight", flightService.editFlight(flight));
-        model.setViewName("flight-edit-successful");
+        flightService.editFlight(flight);
+        model.addObject("flights", flightService.findAllFlights());
+        model.setViewName("flight-admin");
         return model;
     }
 
