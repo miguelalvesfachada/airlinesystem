@@ -39,21 +39,21 @@
                     <tr>
                         <th scope="col">Flight Name</th>
                         <th scope="col">Flight Capacity</th>
-
                     </tr>
                     </thead>
-                    <p>
                     <tbody>
-                    <tr th:each="flight : ${flights}" >
-                        <td><span th:text="${flight.name}" /></td>
-                        <td><span th:text="${flight.capacity}" /></td>
-                        <td>
-                            <a th:href="@{/delete-flight/(id=${flight.id})}"> Delete </a>
-                        </td>
-                        <td><a th:href="@{/edit-flight/{id}(id=${flight.id})}"> Edit </a></td>
-                    </tr>
+                        <tr th:each="flight : ${flights}">
+                            <td><span th:text="${flight.name}" ></span></td>
+                            <td><span th:text="${flight.capacity}" ></span></td>
+                            <td><a th:href="@{/edit-flight/{id}(id=${flight.id})}"> Edit </a></td>
+                            <td>
+                                <form method="post" action="/delete-flight">
+                                    <input type="hidden" name="id" th:value="${flight.id}">
+                                    <input type="submit" class="btn btn-outline-dark" value="Delete" >
+                                </form>
+                            </td>
+                        </tr>
                     </tbody>
-                    </p>
                 </table>
             </div>
         </div>
