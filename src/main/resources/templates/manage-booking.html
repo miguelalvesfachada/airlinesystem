@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Airline Service</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+
+<nav th:replace="header :: headerFragment"></nav>
+
+<div class="container">
+    <div class="row form-row">
+
+        <div class="card flight-card border-dark">
+
+            Departure time: <span th:text="${schedule.deptTime.dayOfMonth} + '. ' + ${schedule.deptTime.month} +${schedule.deptTime.hour} + ':' + ${schedule.deptTime.minute}" />
+            Arrival time: <span th:text="${schedule.arrivalTime.hour} + ':' + ${schedule.arrivalTime.minute}" />
+
+            <p th:each="airport : ${airports}" th:if="${schedule.toAirportCode == airport.code}" th:text="${airport.name} + ' (' + ${airport.code} + ')'"></p>
+            <p th:each="airport : ${airports}" th:if="${schedule.fromAirportCode == airport.code}" th:text="${airport.name} + ' (' + ${airport.code} + ')'"></p>
+
+            <form id="editCancelReservationForm" method="post" action="/booking/manage/cancel">
+                <input type="hidden" readonly name="scheduleId" th:value="${booking.scheduleId}">
+                <input type="text" id="bookingName" th:value="${booking.name}">
+                <input type="hidden" name="name" th:value="${booking.name}">
+                <input type="text" readonly name="bookingCode" th:value="${booking.bookingCode}">
+                <input id="cancelReservation" class="btn btn-outline-danger" type="submit" value="Cancel Reservation">
+                <input id="changeReservationName" class="btn btn-outline-danger" type="submit" value="Change Name">
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

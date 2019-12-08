@@ -88,8 +88,18 @@ $(document).ready(function() {
 
     });
 
+    $('#cancelReservation').click(function () {
+        $('#editCancelReservationForm').attr({
+            action: "/booking/manage/cancel"
+        });
+    });
 
-
+    $('#changeReservationName').click(function () {
+        $('input[name="name"]').val($('#bookingName').val());
+        $('#editCancelReservationForm').attr({
+            action: "/booking/manage/edit"
+        });
+    });
 
 });
 

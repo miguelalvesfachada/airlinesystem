@@ -79,4 +79,9 @@ public class BookingService {
         return reservationRepository.findAll(pageable);
     }
 
+    public Reservation editReservationName(Reservation reservation) {
+        Reservation changedReservation = reservationRepository.findByBookingCode(reservation.getBookingCode()).get();
+        changedReservation.setName(reservation.getName());
+        return reservationRepository.save(changedReservation);
+    }
 }
