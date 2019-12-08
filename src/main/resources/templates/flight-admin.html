@@ -39,49 +39,26 @@
                     <tr>
                         <th scope="col">Flight Name</th>
                         <th scope="col">Flight Capacity</th>
-
                     </tr>
                     </thead>
-                    <p>
                     <tbody>
-                    <tr th:each="flight : ${flights}" >
-                        <td><span th:text="${flight.name}" /></td>
-                        <td><span th:text="${flight.capacity}" /></td>
-                        <td>
-                            <a th:href="@{/delete-flight/(id=${flight.id})}"> Delete </a>
-                        </td>
-                        <td><a th:href="@{/edit-flight/{id}(id=${flight.id})}"> Edit </a></td>
-                    </tr>
+                        <tr th:each="flight : ${flights}">
+                            <td><span th:text="${flight.name}" ></span></td>
+                            <td><span th:text="${flight.capacity}" ></span></td>
+                            <td><a th:href="@{/edit-flight/{id}(id=${flight.id})}"> Edit </a></td>
+                            <td>
+                                <form method="post" action="/delete-flight">
+                                    <input type="hidden" name="id" th:value="${flight.id}">
+                                    <input type="submit" class="btn btn-outline-dark" value="Delete" >
+                                </form>
+                            </td>
+                        </tr>
                     </tbody>
-                    </p>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
-<!--<div class="container">
-    <div class="row form-row">
-        <div class="card">
-            <div class="card-body">
-                <form method="post" action="/deleteflight">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Flight Name...">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="capacity" placeholder="Flight Capacity...">
-                    </div>
-
-                    <input class="btn btn-outline-dark" type="submit" value="Delete Flight">
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>-->
-
-
-
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
