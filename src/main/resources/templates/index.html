@@ -12,6 +12,23 @@
         <a class="navbar-brand text-white-50" href="/">
             Airline Service
         </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Home</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/booking/search">Manage</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
 
@@ -20,26 +37,29 @@
             <div class="card">
                 <div class="card-body">
 
-                    <div class="form-group radio-group">
 
-                        One-way<input id="onewayradio" type="radio" name="onewayreturn" value="oneway" checked>
-
-                        Return<input id="returnradio" type="radio" name="onewayreturn" value="return">
-                    </div>
                     <form id="searchflights" method="get" action="/search">
 
+                        <div class="form-group radio-group">
+
+                            One-way<input id="onewayradio" type="radio" name="returnFlight" checked value=false>
+
+                            Return<input id="returnradio" type="radio" name="returnFlight" value=true>
+                        </div>
 
                         <div class="form-group">
                             <label for="fromLocation">From</label>
-                            <input autocomplete="off" type="text" class="form-control" id="fromLocation" name="fromAirport" placeholder="From..." list="locationlist">
-                            <datalist id="locationlist">
-                                <option class="airportoption" th:each="airport : ${airports}" th:attr="data-value=${airport.code}" th:value="${airport.name}">
-                                <option class="locationoption" th:each="location : ${locations}" th:attr="data-value=${location.id}" th:value="${location.name} + ' (All airports)'">
-                            </datalist>
+                            <input autocomplete="off" type="text" class="form-control" id="fromLocation" name="searchToInput" placeholder="From..." list="locationlist">
+                                <input id="formFromInput" type="hidden" name="fromAirport">
+                                <datalist id="locationlist">
+                                    <option class="airportoption" th:each="airport : ${airports}" th:attr="data-value=${airport.code}" th:value="${airport.name}">
+                                    <option class="locationoption" th:each="location : ${locations}" th:attr="data-value=${location.id}" th:value="${location.name} + ' (All airports)'">
+                                </datalist>
                         </div>
                             <div class="form-group">
                             <label for="toLocation">To</label>
-                            <input autocomplete="off" type="text" class="form-control" id="toLocation"  name="toAirport" placeholder="To..." list="locationlist2">
+                            <input autocomplete="off" type="text" class="form-control" id="toLocation"  name="searchFromInput" placeholder="To..." list="locationlist2">
+                                <input id="formToInput" type="hidden" name="toAirport">
                                 <datalist id="locationlist2">
                                     <option class="airportoption" th:each="airport : ${airports}" th:attr="data-value=${airport.code}" th:value="${airport.name}">
                                     <option class="locationoption" th:each="location : ${locations}" th:attr="data-value=${location.id}" th:value="${location.name} + ' (All airports)'">

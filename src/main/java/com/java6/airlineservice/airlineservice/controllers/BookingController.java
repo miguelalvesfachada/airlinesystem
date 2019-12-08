@@ -3,6 +3,7 @@ package com.java6.airlineservice.airlineservice.controllers;
 
 import com.java6.airlineservice.airlineservice.models.Reservation;
 import com.java6.airlineservice.airlineservice.models.Schedule;
+import com.java6.airlineservice.airlineservice.services.AirportServices;
 import com.java6.airlineservice.airlineservice.services.BookingService;
 import com.java6.airlineservice.airlineservice.services.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class BookingController {
     private BookingService bookingService;
     @Autowired
     private ScheduleService scheduleService;
+    @Autowired
+    private AirportServices airportServices;
 
 
     @GetMapping("/search")
@@ -35,6 +38,7 @@ public class BookingController {
     public String book (@PathVariable long id, Model model) {
         Schedule schedule = scheduleService.getScheduleById(id);
         model.addAttribute("schedule", schedule);
+        model.addAttribute("airports", airportServices.findAllAirports());
         model.addAttribute("reservation", new Reservation());
         return "booking";
     }
