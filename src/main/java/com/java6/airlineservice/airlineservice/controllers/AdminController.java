@@ -126,7 +126,7 @@ public class AdminController {
         return model;
     }
 
-    @PostMapping("/deleteflight")
+    @GetMapping("/delete-flight")
     @Secured("ROLE_FLIGHT_WRITE")
     public ModelAndView deleteFlight(Flight flight){
         ModelAndView model = new ModelAndView();
