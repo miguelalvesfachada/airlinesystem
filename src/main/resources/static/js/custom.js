@@ -105,7 +105,9 @@ $(document).ready(function() {
         var button = $(this);
         var flightName = button.data('object-name');
         var flightCapacity = button.data('object-capacity');
+        var id = button.data('object-id');
 
+        $('#flightid').val(id);
         $('#name').val(flightName);
         $('#capacity').val(flightCapacity);
         $('.modal-title').text('Edit flight: ' + flightName);

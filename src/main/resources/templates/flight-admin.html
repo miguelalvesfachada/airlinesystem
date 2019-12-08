@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Airline Service</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 
@@ -42,7 +42,6 @@
 
                     </tr>
                     </thead>
-                    <p>
                     <tbody>
                     <tr th:each="flight : ${flights}" >
                         <td><span th:text="${flight.name}" /></td>
@@ -51,7 +50,7 @@
                             <a th:href="@{/delete-flight/(id=${flight.id})}">Delete</a>
                         </td>
                         <td>
-                            <button id="flightModalButton" type="button" class="btn btn-primary" data-toggle="modal"  data-target="#exampleModal" th:attr="data-object-name=${flight.name}, data-object-capacity=${flight.capacity}">Edit</button>
+                            <button id="flightModalButton" type="button" class="btn btn-primary" data-toggle="modal"  data-target="#exampleModal" th:attr="data-object-id=${flight.id}, data-object-name=${flight.name}, data-object-capacity=${flight.capacity}">Edit</button>
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -61,6 +60,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <form method="post" action="/admin/manage/edit/flight">
+                                                    <input type="hidden" id="flightid" name="id">
                                                 <div class="form-group">
                                                     <label for="name" class="control-label">Flight Name: </label>
                                                     <input type="text" class="form-control" id="name" name="name">
@@ -80,7 +80,6 @@
                         </td>
                     </tr>
                     </tbody>
-                    </p>
                 </table>
             </div>
         </div>
