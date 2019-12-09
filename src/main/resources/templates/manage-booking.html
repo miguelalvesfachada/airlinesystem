@@ -26,8 +26,12 @@
                 <input type="text" id="bookingName" th:value="${booking.name}">
                 <input type="hidden" name="name" th:value="${booking.name}">
                 <input type="text" readonly name="bookingCode" th:value="${booking.bookingCode}">
-                <input id="cancelReservation" class="btn btn-outline-danger" type="submit" value="Cancel Reservation">
-                <input id="changeReservationName" class="btn btn-outline-danger" type="submit" value="Change Name">
+                <p>Your booking status is: <span th:text="${booking.status}"></span></p>
+                <div th:if="${booking.status.equals(booking.status.BOOKED)}">
+                    <input id="cancelReservation" class="btn btn-outline-danger" type="submit" value="Cancel Reservation">
+                    <input id="changeReservationName" class="btn btn-outline-danger" type="submit" value="Change Name">
+                </div>
+
             </form>
 
         </div>

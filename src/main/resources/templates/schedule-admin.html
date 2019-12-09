@@ -4,18 +4,11 @@
     <meta charset="UTF-8">
     <title>Airline Service</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 
-<nav class="navbar navbar-light bg-secondary">
-    <a class="navbar-brand text-white-50" href="/">
-        Airline Service
-    </a>
-    <a class="navbar-brand text-white-50" href="/logout">
-        Logout
-    </a>
-</nav>
+<nav th:replace="header :: headerFragment"></nav>
 
 
 <div class="container">
@@ -24,10 +17,16 @@
             <div class="card-body">
                 <form method="post" action="/addschedule">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="fromAirportCode" placeholder="From Airport Code...">
+                        <label for="airportcode" class="control-label">From Airport Code: </label>
+                        <select name="fromAirportCode">
+                            <option th:each="airport : ${airports}" th:value="${airport.code}" th:text="${airport.code}"></option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="toAirportCode" placeholder="To Airport Code...">
+                        <label for="returnairportcode" class="control-label">To Airport Code: </label>
+                        <select name="toAirportCode">
+                            <option th:each="airport : ${airports}" th:value="${airport.code}" th:text="${airport.code}"></option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <input type="datetime-local" class="form-control" name="deptTime" placeholder="Departure Time...">
@@ -45,55 +44,79 @@
                     <input class="btn btn-outline-dark" type="submit" value="Add Schedule">
 
                 </form>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">From</th>
+                        <th scope="col">To</th>
+                        <th scope="col">Dep. Time</th>
+                        <th scope="col">Arr. Time</th>
+                        <th scope="col">Aircraft</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="schedule : ${schedules}">
+                        <td><span th:text="${schedule.fromAirportCode}" ></span></td>
+                        <td><span th:text="${schedule.toAirportCode}" ></span></td>
+                        <td><span th:text="${schedule.deptTime}" ></span></td>
+                        <td><span th:text="${schedule.arrivalTime}" ></span></td>
+                        <td><span th:text="${schedule.remCapacity}" ></span></td>
+                        <td>
+                            <form method="post" action="/delete-schedule">
+                                <input type="hidden" name="id" th:value="${schedule.id}">
+                                <input type="submit" class="btn btn-outline-dark" value="Delete" >
+                            </form>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary scheduleModalButton" data-toggle="modal"  data-target="#exampleModal" th:attr="data-object-id=${schedule.id}, data-object-from=${schedule.fromAirportCode}, data-object-to=${schedule.toAirportCode},data-object-depttime=${schedule.deptTime}, data-object-arrtime=${schedule.arrivalTime}, data-object-remcap=${schedule.remCapacity}">Edit</button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="exampleModalLabel"></h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" action="/admin/manage/edit/schedule">
+                                                <input type="hidden" id="scheduleid" name="id">
+                                                <div class="form-group">
+                                                    <label for="airportcode" class="control-label">From Airport Code: </label>
+                                                    <select name="fromAirportCode" id="airportcode">
+                                                        <option th:each="airport : ${airports}" th:value="${airport.code}" th:text="${airport.code}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="returnairportcode" class="control-label">To Airport Code: </label>
+                                                    <select name="toAirportCode" id="returnairportcode">
+                                                        <option th:each="airport : ${airports}" th:value="${airport.code}" th:text="${airport.code}"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="datetime-local" class="form-control" name="deptTime" placeholder="Departure Time...">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="datetime-local" class="form-control" name="arrivalTime" placeholder="Arrival Time...">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="remcapacity" class="control-label">Remaining capacity: </label>
+                                                    <input type="number" id="remcapacity" name="remCapacity">
+                                                </div>
+
+                                                <input type="submit" class="btn btn-primary" value="Submit">
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container">
-    <div class="row form-row">
-        <div class="card">
-            <div class="card-body">
-                <form method="post" action="/deleteschedule">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="fromAirportCode" placeholder="From Airport Code...">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="toAirportCode" placeholder="To Airport Code...">
-                    </div>
-                    <div class="form-group">
-                        <input type="datetime-local" class="form-control" name="deptTime" placeholder="Departure Time...">
-                    </div>
-                    <div class="form-group">
-                        <input type="datetime-local" class="form-control" name="arrivalTime" placeholder="Arrival Time...">
-                    </div>
-                    <div class="form-group">
-                        <select name="remCapacity" th:each="flight : ${flights}">
-                            <option th:text="${flight.name}" th:value="${flight.capacity}"></option>
-                        </select>
-                    </div>
-
-
-                    <input class="btn btn-outline-dark" type="submit" value="Delete Schedule">
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
-</html>l>

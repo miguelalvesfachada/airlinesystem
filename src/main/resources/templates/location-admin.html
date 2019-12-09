@@ -4,69 +4,82 @@
     <meta charset="UTF-8">
     <title>Airline Service</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 
-<nav class="navbar navbar-light bg-secondary">
-    <a class="navbar-brand text-white-50" href="/">
-        Airline Service
-    </a>
-    <a class="navbar-brand text-white-50" href="/logout">
-        Logout
-    </a>
-</nav>
+<nav th:replace="header :: headerFragment"></nav>
+
+    <div class="container">
+        <div class="row form-row">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" action="/addlocation">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="name" placeholder="Location Name...">
+                        </div>
 
 
-<div class="container">
-    <div class="row form-row">
-        <div class="card">
-            <div class="card-body">
-                <form method="post" action="/addlocation">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Location Name...">
-                    </div>
+                        <input class="btn btn-outline-dark" type="submit" value="Add Location">
 
+                    </form>
 
-                    <input class="btn btn-outline-dark" type="submit" value="Add Location">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Airport Code</th>
+                            <th scope="col">Airport Name</th>
+                            <th scope="col" colspan="3">Airport Location_ID</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="location : ${locations}">
+                            <td><span th:text="${location.name}" ></span></td>
+                            <td>
+                                <form method="post" action="/delete-location">
+                                    <input type="hidden" name="id" th:value="${location.id}">
+                                    <input type="submit" class="btn btn-outline-dark" value="Delete" >
+                                </form>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary locationModalButton" data-toggle="modal"  data-target="#exampleModal" th:attr="data-object-id=${location.id}, data-object-name=${location.name}">Edit</button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="exampleModalLabel"></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post" action="/admin/manage/edit/location">
+                                                    <input type="hidden" id="locationid" name="id">
+                                                    <div class="form-group">
+                                                        <label for="name" class="control-label">Location Name: </label>
+                                                        <input type="text" class="form-control" id="name" name="name">
+                                                    </div>
 
-                </form>
+                                                    <input type="submit" class="btn btn-primary" value="Submit">
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <div class="row form-row">
-        <div class="card">
-            <div class="card-body">
-                <form method="post" action="/deletelocation">
-
-
-                    <select name="id" th:each="location : ${locations}">
-                        <option th:text="${location.name}" th:value="${location.id}"></option>
-                    </select>
-
-
-                    <input class="btn btn-outline-dark" type="submit" value="Delete Location">
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </body>
 </html>

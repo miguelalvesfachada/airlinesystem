@@ -4,18 +4,11 @@
     <meta charset="UTF-8">
     <title>Airline Service</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 
-<nav class="navbar navbar-light bg-secondary">
-    <a class="navbar-brand text-white-50" href="/">
-        Airline Service
-    </a>
-    <a class="navbar-brand text-white-50" href="/logout">
-        Logout
-    </a>
-</nav>
+<nav th:replace="header :: headerFragment"></nav>
 
 
 <div class="container">
@@ -24,7 +17,9 @@
             <div class="card-body">
                 <form method="post" action="/addairport">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="locationId" placeholder="Location ID...">
+                        <select name="locationId">
+                            <option th:each="location : ${locations}" th:value="${location.id}" th:text="${location.name}"></option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" name="code" placeholder="Airport Code...">
@@ -51,12 +46,46 @@
                         <td><span th:text="${airport.code}" ></span></td>
                         <td><span th:text="${airport.name}" ></span></td>
                         <td><span th:text="${airport.locationId}" ></span></td>
-                        <td><a th:href="@{/edit-flight/{id}(id=${airport.id})}"> Edit </a></td>
                         <td>
                             <form method="post" action="/delete-airport">
                                 <input type="hidden" name="id" th:value="${airport.id}">
                                 <input type="submit" class="btn btn-outline-dark" value="Delete" >
                             </form>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary airportModalButton" data-toggle="modal"  data-target="#exampleModal" th:attr="data-object-id=${airport.id}, data-object-code=${airport.code}, data-object-name=${airport.name}, data-object-locations=${locations}, data-object-locationid=${airport.locationId}">Edit</button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="exampleModalLabel"></h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" action="/admin/manage/edit/airport">
+                                                <input type="hidden" id="airportid" name="id">
+                                                <div class="form-group">
+                                                    <label for="name" class="control-label">Airport Name: </label>
+                                                    <input type="text" class="form-control" id="name" name="name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="code" class="control-label">Airport Code: </label>
+                                                    <input type="text" class="form-control" id="code" name="code" maxlength="3" minlength="3">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="locationid" class="control-label">Location ID: </label>
+                                                    <select name="locationId" id="locationid">
+                                                        <option th:each="location : ${locations}" th:value="${location.id}" th:text="${location.name}"></option>
+                                                    </select>
+                                                </div>
+
+                                                <input type="submit" class="btn btn-primary" value="Submit">
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
@@ -70,15 +99,5 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
-</html>
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

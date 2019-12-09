@@ -1,10 +1,13 @@
 $(document).ready(function() {
 
+    $('#onewayradio').attr("checked");
+
     $('#returnradio').click(function() {
         $('#returnFlightTimeDiv').css('visibility', 'visible');
-        $('#returnFlightTimeDiv').append('<label class="datepicker" for="returnFlightTime">Pick a return date</label>' +
-            '<input type="date" id="returnFlightTime" name="returnFlightTime" min="">');
-
+        if(!$('#returnFlightTime').length) {
+            $('#returnFlightTimeDiv').append('<label class="datepicker" for="returnFlightTime">Pick a return date</label>' +
+                '<input type="date" id="returnFlightTime" name="returnFlightTime" min="">');
+        }
         $("#returnFlightTime").attr("min", $("#flightTime").val());
 
         $("#returnFlightTime").on("change paste keyup", function() {
@@ -100,8 +103,8 @@ $(document).ready(function() {
             action: "/booking/manage/edit"
         });
     });
-    
-    $('#flightModalButton').click(function (event) {
+
+    $('.flightModalButton').click(function (event) {
         var button = $(this);
         var flightName = button.data('object-name');
         var flightCapacity = button.data('object-capacity');
@@ -113,6 +116,47 @@ $(document).ready(function() {
         $('.modal-title').text('Edit flight: ' + flightName);
     });
 
+    $('.airportModalButton').click(function (event) {
+        var button = $(this);
+        var airportName = button.data('object-name');
+        var airportCode = button.data('object-code');
+        var id = button.data('object-id');
+        var locationId = button.data('object-locationid');
+
+        $('#airportid').val(id);
+        $('#name').val(airportName);
+        $('#code').val(airportCode);
+        $('#locationid').val(locationId);
+        $('.modal-title').text('Edit airport: ' + airportName);
+    });
+
+    $('.locationModalButton').click(function (event) {
+        var button = $(this);
+        var locationName = button.data('object-name');
+        var id = button.data('object-id');
+
+        $('#locationid').val(id);
+        $('#name').val(locationName);
+        $('.modal-title').text('Edit location: ' + locationName);
+    });
+
+    $('.scheduleModalButton').click(function (event) {
+        var button = $(this);
+        var id = button.data('object-id');
+        var from = button.data('object-from');
+        var to = button.data('object-to');
+        var depttime = button.data('object-depttime');
+        var arrtime = button.data('object-arrtime');
+        var remcap = button.data('object-remcap');
+
+        $('#scheduleid').val(id);
+        $('#airportcode').val(from);
+        $('#returnairportcode').val(to);
+        $('input[name=deptTime]').val(depttime);
+        $('input[name=arrivalTime]').val(arrtime);
+        $('#remcapacity').val(remcap);
+        $('.modal-title').text('Edit schedule:');
+    });
 });
 
 

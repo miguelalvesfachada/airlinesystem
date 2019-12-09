@@ -36,6 +36,7 @@ public class AdminController {
     @Secured("ROLE_AIRPORT_WRITE")
     public String returnAirportAdmin(Model model) {
         model.addAttribute("airports", airportServices.findAllAirports());
+        model.addAttribute("locations", locationServices.findAllLocations());
         return "airport-admin";
     }
 
@@ -43,6 +44,8 @@ public class AdminController {
     @Secured("ROLE_SCHEDULE_WRITE")
     public String returnScheduleAdmin(Model model){
         model.addAttribute("flights", flightService.findAllFlights());
+        model.addAttribute("airports", airportServices.findAllAirports());
+        model.addAttribute("schedules", scheduleService.findAllSchedules());
         return "schedule-admin";
     }
 
@@ -57,31 +60,36 @@ public class AdminController {
     @Secured("ROLE_AIRPORT_WRITE")
     public ModelAndView addAirport(Airport airport) {
         ModelAndView model = new ModelAndView();
-        model.addObject("airport", airportServices.addAirport(airport));
-        model.setViewName("airport-add-successful");
+        airportServices.addAirport(airport);
+        model.addObject("airports", airportServices.findAllAirports());
+        model.addObject("locations", locationServices.findAllLocations());
+        model.setViewName("airport-admin");
         return model;
 
 
     }
 
-    @PostMapping("/deleteairport")
+    @PostMapping("/delete-airport")
     @Secured("ROLE_AIRPORT_WRITE")
     public ModelAndView deleteAirport(Airport airport) {
         ModelAndView model = new ModelAndView();
-        model.addObject("airport", airport);
         airportServices.deleteAirport(airport);
-        model.setViewName("airport-delete-successful");
+        model.addObject("airports", airportServices.findAllAirports());
+        model.addObject("locations", locationServices.findAllLocations());
+        model.setViewName("airport-admin");
         return model;
 
 
     }
 
-    @PostMapping("/editairport")
+    @PostMapping("/admin/manage/edit/airport")
     @Secured("ROLE_AIRPORT_WRITE")
     public ModelAndView editAirport(Airport airport) {
         ModelAndView model = new ModelAndView();
-        model.addObject("airport", airportServices.editAirport(airport));
-        model.setViewName("airport-edit-successful");
+        airportServices.editAirport(airport);
+        model.addObject("locations", locationServices.findAllLocations());
+        model.addObject("airports", airportServices.findAllAirports());
+        model.setViewName("airport-admin");
         return model;
     }
 
@@ -89,31 +97,39 @@ public class AdminController {
     @Secured("ROLE_SCHEDULE_WRITE")
     public ModelAndView addSchedule(Schedule schedule){
         ModelAndView model= new ModelAndView();
-        model.addObject("schedule",scheduleService.addSchedule(schedule));
-        model.setViewName("schedule-add-successful");
+        scheduleService.addSchedule(schedule);
+        model.addObject("flights", flightService.findAllFlights());
+        model.addObject("airports", airportServices.findAllAirports());
+        model.addObject("schedules", scheduleService.findAllSchedules());
+        model.setViewName("schedule-admin");
         return model;
 
 
     }
 
-    @PostMapping("/deleteschedule")
+    @PostMapping("/delete-schedule")
     @Secured("ROLE_SCHEDULE_WRITE")
     public ModelAndView deleteSchedule(Schedule schedule){
         ModelAndView model= new ModelAndView();
         scheduleService.deleteSchedule(schedule);
-        model.addObject("schedule", schedule);
-        model.setViewName("schedule-delete-successful");
+        model.addObject("flights", flightService.findAllFlights());
+        model.addObject("airports", airportServices.findAllAirports());
+        model.addObject("schedules", scheduleService.findAllSchedules());
+        model.setViewName("schedule-admin");
         return model;
 
 
     }
 
-    @PostMapping("/editschedule")
+    @PostMapping("/admin/manage/edit/schedule")
     @Secured("ROLE_SCHEDULE_WRITE")
     public ModelAndView editSchedule(Schedule schedule) {
         ModelAndView model = new ModelAndView();
-        model.addObject("schedule", scheduleService.editSchedule(schedule));
-        model.setViewName("schedule-edit-successful");
+        scheduleService.editSchedule(schedule);
+        model.addObject("flights", flightService.findAllFlights());
+        model.addObject("airports", airportServices.findAllAirports());
+        model.addObject("schedules", scheduleService.findAllSchedules());
+        model.setViewName("schedule-admin");
         return model;
     }
 
@@ -132,8 +148,8 @@ public class AdminController {
     public ModelAndView deleteFlight(Flight flight){
         ModelAndView model = new ModelAndView();
         flightService.deleteFlight(flight);
-        model.addObject("flight", flight);
-        model.setViewName("flight-delete-successful");
+        model.addObject("flights", flightService.findAllFlights());
+        model.setViewName("flight-admin");
         return model;
     }
 
@@ -152,29 +168,31 @@ public class AdminController {
     @Secured("ROLE_LOCATION_WRITE")
     public ModelAndView addLocation(Location location) {
         ModelAndView model = new ModelAndView();
-        model.addObject(locationServices.addLocation(location));
-        model.setViewName("location-add-successful");
+        locationServices.addLocation(location);
+        model.addObject("locations", locationServices.findAllLocations());
+        model.setViewName("location-admin");
         return model;
 
     }
 
-    @PostMapping("/deletelocation")
+    @PostMapping("/delete-location")
     @Secured("ROLE_LOCATION_WRITE")
     public ModelAndView deleteLocation(Location location) {
         ModelAndView model = new ModelAndView();
         locationServices.deleteLocation(location);
-        model.addObject("location", location);
-        model.setViewName("location-delete-successful");
+        model.addObject("locations", locationServices.findAllLocations());
+        model.setViewName("location-admin");
         return model;
 
     }
 
-    @PostMapping("/editlocation")
+    @PostMapping("/admin/manage/edit/location")
     @Secured("ROLE_LOCATION_WRITE")
     public ModelAndView editLocation(Location location) {
         ModelAndView model = new ModelAndView();
-        model.addObject("location", locationServices.editLocation(location));
-        model.setViewName("location-edit-successful");
+        locationServices.editLocation(location);
+        model.addObject("locations", locationServices.findAllLocations());
+        model.setViewName("location-admin");
         return model;
     }
 

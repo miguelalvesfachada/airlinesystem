@@ -25,7 +25,7 @@
 
                         <div class="form-group">
                             <label for="fromLocation">From</label>
-                            <input autocomplete="off" type="text" class="form-control" id="fromLocation" name="searchToInput" placeholder="From..." list="locationlist">
+                            <input autocomplete="off" type="text" class="form-control" id="fromLocation" name="searchFromInput" placeholder="From..." list="locationlist">
                                 <input id="formFromInput" type="hidden" name="fromAirport">
                                 <datalist id="locationlist">
                                     <option class="airportoption" th:each="airport : ${airports}" th:attr="data-value=${airport.code}" th:value="${airport.name}">
@@ -34,7 +34,7 @@
                         </div>
                             <div class="form-group">
                             <label for="toLocation">To</label>
-                            <input autocomplete="off" type="text" class="form-control" id="toLocation"  name="searchFromInput" placeholder="To..." list="locationlist2">
+                            <input autocomplete="off" type="text" class="form-control" id="toLocation"  name="searchToInput" placeholder="To..." list="locationlist2">
                                 <input id="formToInput" type="hidden" name="toAirport">
                                 <datalist id="locationlist2">
                                     <option class="airportoption" th:each="airport : ${airports}" th:attr="data-value=${airport.code}" th:value="${airport.name}">

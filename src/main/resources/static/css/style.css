@@ -4,12 +4,16 @@
     text-align: center;
 }
 
-.form-row .card {
+.form-row.card {
     width: auto;
     justify-content: center;
 }
 
-.form-row .flight-card {
+.card-success {
+    max-width: 400px;
+}
+
+.form-row.flight-card {
     width: 100%;
     margin: 5px 0;
 }
@@ -37,6 +41,7 @@ a:hover {
 
 .booking-form {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-content: center;
 }

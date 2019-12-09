@@ -111,7 +111,6 @@ public class ScheduleService {
 
         } else if (fromLocationId.isPresent()) {
             List<Airport> fromAirports = airportServices.findAllByLocationId(fromLocationId.get());
-            List<Schedule> schedules = new ArrayList<>();
             for (Airport fromAirport: fromAirports) {
                 toSchedules.addAll(scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(fromAirport.getCode(),
                         searchParameters.getToAirport(), flightTimeFrom, flightTimeTo,searchParameters.getNumberOfPeople()));
@@ -125,12 +124,11 @@ public class ScheduleService {
             return flightsAndReturnFlights;
         } else if (toLocationId.isPresent()) {
             List<Airport> toAirports = airportServices.findAllByLocationId(toLocationId.get());
-            List<Schedule> schedules = new ArrayList<>();
             for (Airport toAirport: toAirports) {
                 toSchedules.addAll(scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(searchParameters.getFromAirport(),
                         toAirport.getCode(), flightTimeFrom, flightTimeTo,searchParameters.getNumberOfPeople()));
-                returnSchedules.addAll(scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(
-                        toAirport.getCode(), searchParameters.getFromAirport(), flightTimeFrom, flightTimeTo,searchParameters.getNumberOfPeople()));
+                returnSchedules.addAll(scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(toAirport.getCode(),
+                        searchParameters.getFromAirport(), returnflightTimeFrom, returnflightTimeTo,searchParameters.getNumberOfPeople()));
             }
             flightsAndReturnFlights.put("toFlights", toSchedules);
             flightsAndReturnFlights.put("returnFlights", returnSchedules);
@@ -139,7 +137,7 @@ public class ScheduleService {
             toSchedules.addAll(scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(searchParameters.getFromAirport(),
                     searchParameters.getToAirport(), flightTimeFrom, flightTimeTo,searchParameters.getNumberOfPeople()));
             returnSchedules.addAll(scheduleRepository.findAllByFromAirportCodeAndToAirportCodeAndDeptTimeBetweenAndRemCapacityGreaterThanEqual(
-                    searchParameters.getToAirport(), searchParameters.getFromAirport(), flightTimeFrom, flightTimeTo,searchParameters.getNumberOfPeople()));
+                    searchParameters.getToAirport(), searchParameters.getFromAirport(), returnflightTimeFrom, returnflightTimeTo,searchParameters.getNumberOfPeople()));
             flightsAndReturnFlights.put("toFlights", toSchedules);
             flightsAndReturnFlights.put("returnFlights", returnSchedules);
             return flightsAndReturnFlights;
@@ -174,5 +172,7 @@ public class ScheduleService {
     }
 
 
-
+    public List<Schedule> findAllSchedules() {
+        return scheduleRepository.findAll();
+    }
 }
