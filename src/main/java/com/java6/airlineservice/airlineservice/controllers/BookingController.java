@@ -96,14 +96,18 @@ public class BookingController {
 
     @PostMapping("/manage/cancel")
     public String setBookingStatusToCancel(Model model, Reservation reservation){
-        model.addAttribute(bookingService.cancelReservation(reservation));
-        return "cancel-booking-success";
+        model.addAttribute("booking", bookingService.cancelReservation(reservation));
+        model.addAttribute("airports", airportServices.findAllAirports());
+        model.addAttribute("schedule", scheduleService.getScheduleById(reservation.getScheduleId()));
+        return "manage-booking";
     }
 
     @PostMapping("/manage/edit")
     public String editReservationName(Model model, Reservation reservation){
-        model.addAttribute(bookingService.editReservationName(reservation));
-        return "cancel-booking-success";
+        model.addAttribute("booking", bookingService.editReservationName(reservation));
+        model.addAttribute("airports", airportServices.findAllAirports());
+        model.addAttribute("schedule", scheduleService.getScheduleById(reservation.getScheduleId()));
+        return "manage-booking";
     }
 
     //TODO agree on the terminology - reservation vs booking, and keep using only one. Start changing the names carefully.
